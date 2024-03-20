@@ -32,6 +32,8 @@ parts:
       title: MODIS for fsCA
     - file: chapters/dem
       title: Digital Elevation Model
+    - file: chapters/amsr
+      title: AMSR
 
 - caption: Chapter Four
   chapters:
