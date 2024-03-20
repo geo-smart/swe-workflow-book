@@ -12,3 +12,4 @@ dependencies:
   - jupytext
   - plotly
   - pandas
+  - pydata-sphinx-theme
