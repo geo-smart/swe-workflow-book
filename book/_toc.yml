@@ -1,16 +1,14 @@
-# Table of contents
-# Learn more at https://jupyterbook.org/customize/toc.html
 root: intro
 format: jb-book
 parts:
-- caption: About
-  chapters:
-    - title: Geosmart Website
-      url: https://geo-smart.github.io/index.html
-    - title: Project Pythia Foundations
-      url: https://foundations.projectpythia.org/landing-page.html
-    - title: About Use Case Library
-      file: chapters/about
+#- caption: About
+#  chapters:
+#    - title: Geosmart Website
+#      url: https://geo-smart.github.io/index.html
+#    - title: Project Pythia Foundations
+#      url: https://foundations.projectpythia.org/landing-page.html
+#    - title: About Use Case Library
+#      file: chapters/about
 
 - caption: Chapter One
   chapters:

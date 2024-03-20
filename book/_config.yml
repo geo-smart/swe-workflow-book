@@ -1,9 +1,9 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: "Use Case Template"
-author: eScience Institute, University of Washington
-logo: img/GeoSMART_logo.svg
+title: "Snow Water Equivalent Workflow"
+author: Center for Spatial Information Science and Systems (CSISS), George Mason University
+logo: img/logo/png
 only_build_toc_files: true
 
 # Add GitHub buttons to your book
