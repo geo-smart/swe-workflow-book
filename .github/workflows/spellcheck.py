@@ -45,7 +45,7 @@ def spell_check_directory(directory, ignore_words):
     sys.exit(1)  # Exit with a non-zero status code to indicate failure
 
 if __name__ == "__main__":
-  ignore_list =misspelled_words = [
+  ignore_list = [
     "geoweaver", "workflow", "datasets", "snotel", "snowpack", "amsrderived", "highelevation",
     "snowpacktelemetrynetwork", "snowcastwormhole", "500m", "amsr", "decisionmaking",
     "qualitycontrolled", "pagehttpswwwearthdatanasagovsensorsamsre", "netcdf", "daac", "4km",
