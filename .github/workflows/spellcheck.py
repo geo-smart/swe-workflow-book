@@ -56,6 +56,6 @@ if __name__ == "__main__":
     "nsidc", "realtime", "satellitebased", "amsre", "level1a", "websitehttpswwwclimatologylaborggridmethtml",
     "124th", "cryospheric", "american", "timestamped", "geolocation", "nrcs", "satellitederived", "awdn",
     "1000m", "snowmelt", "nasas", "amsr2", "dataset", "gridmet", "hightech", "youll", "cryosphere", "µm",
-    "250m", "highspatial", "hydroclimatic", "fsca", "workflow"
+    "250m", "highspatial", "hydroclimatic", "fsca", "workflow", "swe"
   ]
   spell_check_directory('.', ignore_list)
