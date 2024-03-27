@@ -45,5 +45,5 @@ def spell_check_directory(directory, ignore_words):
     sys.exit(1)  # Exit with a non-zero status code to indicate failure
 
 if __name__ == "__main__":
-  ignore_list = []
+  ignore_list = ["swe"]
   spell_check_directory('.', ignore_list)
