@@ -45,5 +45,17 @@ def spell_check_directory(directory, ignore_words):
     sys.exit(1)  # Exit with a non-zero status code to indicate failure
 
 if __name__ == "__main__":
-  ignore_list = ["swe"]
+  ignore_list =misspelled_words = [
+    "geoweaver", "workflow", "datasets", "snotel", "snowpack", "amsrderived", "highelevation",
+    "snowpacktelemetrynetwork", "snowcastwormhole", "500m", "amsr", "decisionmaking",
+    "qualitycontrolled", "pagehttpswwwearthdatanasagovsensorsamsre", "netcdf", "daac", "4km",
+    "satelliteii", "usthe", "strategizing", "xband", "modis", "pagehttpswwwearthdatanasagovsensorsmodis",
+    "nam", "amsrrelated", "adeosii", "mesoscale", "amsradeosii", "apis", "asos", "missionwater",
+    "metadata", "shortterm", "groundbased", "hdf", "british", "october", "level2a", "gcomw1", "csv",
+    "dataloggers", "columbia", "ascii", "tsv", "amsadeosii", "longterm", "onboard", "wrf", "km", "hdf5",
+    "nsidc", "realtime", "satellitebased", "amsre", "level1a", "websitehttpswwwclimatologylaborggridmethtml",
+    "124th", "cryospheric", "american", "timestamped", "geolocation", "nrcs", "satellitederived", "awdn",
+    "1000m", "snowmelt", "nasas", "amsr2", "dataset", "gridmet", "hightech", "youll", "cryosphere", "µm",
+    "250m", "highspatial", "hydroclimatic", "fsca", "workflow"
+  ]
   spell_check_directory('.', ignore_list)
