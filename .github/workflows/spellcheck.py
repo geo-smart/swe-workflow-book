@@ -1,13 +1,13 @@
 from spellchecker import SpellChecker
 import nbformat
 import os
-import sys  # Import sys for exiting with a non-zero status code
+import sys
 
 def spell_check_notebook(filepath, ignore_words):
   spell = SpellChecker()
   spell.word_frequency.load_words(ignore_words)
 
-  has_errors = False  # Flag to track if there are any spelling errors
+  misspelled_words = {}  # Dictionary to collect misspelled words
 
   with open(filepath, 'r', encoding='utf-8') as f:
     nb = nbformat.read(f, as_version=4)
@@ -17,26 +17,25 @@ def spell_check_notebook(filepath, ignore_words):
       text = cell.source
       misspelled = spell.unknown(text.split())
       if misspelled:
-        if not has_errors:  # Print the header once per file
-          print(f"Misspelled words in {filepath}:")
-          has_errors = True
-        for word in misspelled:
-          print(f"- {word}")
-  if has_errors:
-    print("\n")  # Print a newline for readability between files
-    return True  # Return True to indicate spelling errors were found
-  return False
+        if filepath not in misspelled_words:
+          misspelled_words[filepath] = set()  # Use a set to avoid duplicate words
+        misspelled_words[filepath].update(misspelled)
+
+  return misspelled_words
 
 def spell_check_directory(directory, ignore_words):
-  error_found = False
+  all_misspelled_words = {}
   for subdir, dirs, files in os.walk(directory):
     for file in files:
       if file.endswith('.ipynb'):
         filepath = os.path.join(subdir, file)
-        if spell_check_notebook(filepath, ignore_words):
-          error_found = True  # Error found in at least one file
+        result = spell_check_notebook(filepath, ignore_words)
+        if result:
+          all_misspelled_words.update(result)
 
-  if error_found:
+  if all_misspelled_words:
+    for filepath, words in all_misspelled_words.items():
+      print(f"Misspelled words in {filepath}: {', '.join(words)}")
     sys.exit(1)  # Exit with a non-zero status code to indicate failure
 
 if __name__ == "__main__":
