@@ -39,5 +39,20 @@ def spell_check_directory(directory, ignore_words):
     sys.exit(1)  # Exit with a non-zero status code to indicate failure
 
 if __name__ == "__main__":
-  ignore_list = ['slippy', 'hist', 'NAM', 'gage']  # Adjust your ignore list as needed
+  ignore_list = [
+    'slippy', 'hist', 'NAM', 'gage', 'swe', 'geoweaver', 'workflow', 'datasets', 'snotel',
+    'adeos-ii', 'monthly,', 'products,', 'nsidc', 'separately,', 'control.', '##', 'caps,',
+    'dataset.', 'research**:', 'prediction,', 'atmosphere.', 'amsr?', 'fingertips!', 'risk,',
+    'amsr-related', 'amsr2', 'snowfall,', 'properties.', 'netcdf,', '**cryosphere', 'moisture,',
+    'extent,', 'scheduling.', 'scales.', '1,000m.', 'tourism**:', 'format,', 'temperature,',
+    'purposes,', 'hiking,', '**recreation', 'datasets.', 'workflow,', '(coop),', 'periods.',
+    '[gridmet', '**temporal', '(nam)', 'snow,', 'agriculture,', 'amsr,', 'terrain,', 'beyond.',
+    'data,', '(plain', 'data.', 'u.s.the', '(swe),', 'resolutions:', '**oceanography**:', 'daac',
+    'forestry**:', '*runoff', 'format.', 'hdf5', 'information.', 'instruments.', 'ams/adeos-ii,',
+    'land,', 'typically,', 'reliability,', 'capabilities.', 'gage,', '(network', 'environment.,',
+    'dynamics,', 'trends*:', 'dynamics.', 'hydroclimatic', 'studies*:', 'visualization.', 'degree)',
+    'models:', 'snowboarding,', 'camping.', 'salinity,', 'intervals.', 'multi-disciplinary',
+    'monitoring*:', 'endeavors.', 'columbia', 'conditions.', 'nasa\'s', 'metadata',
+    'snowpacktelemetrynetwork', 'satellite-ii', 'winds,', 'mo', 'fsca', 'modis', 'gridmet'
+  ]
   spell_check_directory('.', ignore_list)
