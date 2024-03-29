@@ -56,6 +56,6 @@ if __name__ == "__main__":
     "nsidc", "realtime", "satellitebased", "amsre", "level1a", "websitehttpswwwclimatologylaborggridmethtml",
     "124th", "cryospheric", "american", "timestamped", "geolocation", "nrcs", "satellitederived", "awdn",
     "1000m", "snowmelt", "nasas", "amsr2", "dataset", "gridmet", "hightech", "youll", "cryosphere", "µm",
-    "250m", "highspatial", "hydroclimatic", "fsca", "workflow", "swe"
+    "250m", "highspatial", "hydroclimatic", "fsca", "workflow", "swe", "eg", "snowtel", "gportalhttpsgportaljaxajpgpr", 'scan', "gdp", "scansnowtel", "geo", "aoi", "climateengineorghttpclimateengineorg", 'daily', 'monitoring', "youre", "checkbox", "nasa", "toolhttpsclimatenorthwestknowledgenetmacagdpphp", "v6", 'element', "thredds", 'climate', "xy", "dropdown", "websitehttpwwwwccnrcsusdagovnwccinventory", "websitehttpsearthexplorerusgsgov", "havent", "wgethttpswwwclimatologylaborgwgetgridmethtml", "lpdaac", "mod09ga", "earthdata", "nasahttpsursearthdatanasagov", "shapefile", "statecounty", "gcomw", "dont", 'snowtel', "opendap", "popup", "data", "wget"
   ]
   spell_check_directory('.', ignore_list)
