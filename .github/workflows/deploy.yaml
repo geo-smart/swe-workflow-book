@@ -20,7 +20,7 @@ jobs:
 
     - uses: ./.github/actions/buildresources
       with:
-        jb-cache: false
+        jb-cache: true
         publish-to-gh: true
         jb-save: true
         token:  ${{ secrets.GITHUB_TOKEN }}
