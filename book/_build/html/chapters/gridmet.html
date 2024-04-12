@@ -1,0 +1,1795 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>GridMET Climatology Data Downloader &#8212; Snow Water Equivalent Workflow</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/gridmet';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SNOTEL" href="snotel.html" />
+    <link rel="prev" title="Training and Testing Dataset Overview" href="datasource.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Snow Water Equivalent Workflow - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Snow Water Equivalent Workflow - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter One</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="motivation.html">Motivation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter Two</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of the SWE Workflow</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter Three</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="datasource.html">Training and Testing Dataset Overview</a></li>
+
+
+
+
+
+
+
+
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">GridMET Climatology Data Downloader</a></li>
+
+
+<li class="toctree-l1"><a class="reference internal" href="snotel.html">SNOTEL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fsCA.html">MODIS for fsCA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dem.html">Digital Elevation Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amsr.html">AMSR</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter Four</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="feat_selection.html">Feature Selection</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter Five</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="time_series.html">Cumulative Time series analysis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter Six</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="sanity_checks.html">Workflow Sanity Checks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter Seven</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="model_training.html">Model Training</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter Eight</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Model Testing &amp; Validation</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter Nine</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="predictions.html">Model Predictions / Results</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Chapter Ten</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../reference/glossary.html">Glossaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/bibliography.html">Bibliography</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/geo-smart/use_case_template/main?urlpath=lab/tree/book/chapters/gridmet.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/geo-smart/use_case_template" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/geo-smart/use_case_template/edit/main/book/chapters/gridmet.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/geo-smart/use_case_template/issues/new?title=Issue%20on%20page%20%2Fchapters/gridmet.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/chapters/gridmet.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>GridMET Climatology Data Downloader</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">GridMET Climatology Data Downloader</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gridmet">Gridmet</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gridmet-climatology-data-retrieval-and-analysis">GridMET Climatology Data Retrieval and Analysis</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation:</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="gridmet-climatology-data-downloader">
+<h1>GridMET Climatology Data Downloader<a class="headerlink" href="#gridmet-climatology-data-downloader" title="Link to this heading">#</a></h1>
+<p>In this chapter, we aim to:</p>
+<ul class="simple">
+<li><p><strong>Download GridMET Datan</strong>: Obtain specific meteorological variables from the GridMET climatology dataset for a user-specified year. This involves utilizing libraries such as netCDF4 and urllib for file handling and downloading.</p></li>
+<li><p><strong>Visualize Data</strong>: Create custom color maps and scatter plots to visualize meteorological variables spatially across the western United States. This functionality aids in understanding geographical patterns and trends in meteorological data.</p></li>
+<li><p><strong>Generate Cumulative history CSVs</strong>: Generate cumulative history CSVs to aggregate meteorological data over a specified date range. This feature allows users to analyze historical meteorological patterns and long-term trends for decision-making purposes.</p></li>
+</ul>
+<p>We facilitate the retrieval of specific meteorological variables from the GridMET climatology dataset for a user-defined year. Leveraging libraries such as netCDF4, urllib, and pandas, we enable seamless data handling and manipulation, ensuring efficient processing and analysis of climatological data. We offer custom color mapping for visualizing meteorological patterns and provide functionality for generating cumulative history CSVs, allowing users to aggregate data from past October 1st to the specified target date for trend analysis. With matplotlib, we enable plotting and visualization, empowering users to gain insights through graphical representations.</p>
+<p>We provide comprehensive outputs including downloaded meteorological variables in NetCDF format, custom color-mapped visualizations showcasing meteorological patterns, and cumulative history CSV files containing aggregated data for trend analysis. With these outputs, users can explore and analyze GridMET climatology data efficiently, gaining valuable insights into long-term meteorological trends and patterns.</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="gridmet">
+<h1>Gridmet<a class="headerlink" href="#gridmet" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_current_year</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the current year.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int: The current year.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">current_year</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">year</span>
+    <span class="k">return</span> <span class="n">current_year</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We retrieve the current year from the system’s date and time settings.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">remove_files_in_folder</span><span class="p">(</span><span class="n">folder_path</span><span class="p">,</span> <span class="n">current_year</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Remove all files in a specified folder.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        folder_path (str): Path to the folder to remove files from.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Get a list of files in the folder</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folder_path</span><span class="p">)</span>
+
+    <span class="c1"># Loop through the files and remove them</span>
+    <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder_path</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">str</span><span class="p">(</span><span class="n">current_year</span><span class="p">)</span> <span class="ow">in</span> <span class="n">file_path</span> <span class="ow">and</span> <span class="n">file_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.nc&quot;</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Deleted file: </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We iterate through the files within a designated folder and delete those that meet certain criteria, such as being associated with the current year and having a specific file extension. This ensures that only relevant files are removed from the directory.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">download_file</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">target_file_path</span><span class="p">,</span> <span class="n">variable</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Download a file from a URL and save it to a specified location.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        url (str): URL of the file to download.</span>
+<span class="sd">        target_file_path (str): Path where the downloaded file should be saved.</span>
+<span class="sd">        variable (str): Name of the meteorological variable being downloaded.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Downloading </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">file_content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">save_path</span> <span class="o">=</span> <span class="n">target_file_path</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_content</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File downloaded successfully and saved as: </span><span class="si">{</span><span class="n">save_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An error occurred while downloading the file: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We facilitate the download of a file from a given URL and store it in a specified location. We consider the meteorological variable’s name being downloaded. Upon successful completion, we provide a confirmation message containing the saved file’s path. If any errors occur during the download process, we display an error message.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">download_gridmet_of_specific_variables</span><span class="p">(</span><span class="n">year_list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Download specific meteorological variables from the GridMET climatology dataset.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Make a directory to store the downloaded files</span>
+
+    <span class="n">base_metadata_url</span> <span class="o">=</span> <span class="s2">&quot;http://www.northwestknowledge.net/metdata/data/&quot;</span>
+    <span class="n">variables_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tmmn&#39;</span><span class="p">,</span> <span class="s1">&#39;tmmx&#39;</span><span class="p">,</span> <span class="s1">&#39;pr&#39;</span><span class="p">,</span> <span class="s1">&#39;vpd&#39;</span><span class="p">,</span> <span class="s1">&#39;etr&#39;</span><span class="p">,</span> <span class="s1">&#39;rmax&#39;</span><span class="p">,</span> <span class="s1">&#39;rmin&#39;</span><span class="p">,</span> <span class="s1">&#39;vs&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">variables_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">year_list</span><span class="p">:</span>
+            <span class="n">download_link</span> <span class="o">=</span> <span class="n">base_metadata_url</span> <span class="o">+</span> <span class="n">var</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">y</span> <span class="o">+</span> <span class="s1">&#39;.nc&#39;</span>
+            <span class="n">target_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gridmet_folder_name</span><span class="p">,</span> <span class="n">var</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">y</span> <span class="o">+</span> <span class="s1">&#39;.nc&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">target_file_path</span><span class="p">):</span>
+                <span class="n">download_file</span><span class="p">(</span><span class="n">download_link</span><span class="p">,</span> <span class="n">target_file_path</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File </span><span class="si">{</span><span class="n">target_file_path</span><span class="si">}</span><span class="s2"> exists&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We download specific meteorological variables from the GridMET climatology dataset by iterating over years and variables. If a file for a specific year and variable combination doesn’t exist, we download it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_current_year</span><span class="p">():</span>
+    <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">current_year</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">year</span>
+    <span class="k">return</span> <span class="n">current_year</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We retrieve the current year from the system’s date and time settings.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_file_name_from_path</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+    <span class="c1"># Get the file name from the file path</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">file_name</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_var_from_file_name</span><span class="p">(</span><span class="n">file_name</span><span class="p">):</span>
+    <span class="c1"># Assuming the file name format is &quot;tmmm_year.csv&quot;</span>
+    <span class="n">var_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">file_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">var_name</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We extract the file name from a given file path.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_coordinates_of_template_tif</span><span class="p">():</span>
+  	<span class="c1"># Load the CSV file and extract coordinates</span>
+    <span class="n">coordinates</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">dem_csv</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="c1"># Process each row here</span>
+        <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;Latitude&quot;</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;Longitude&quot;</span><span class="p">])</span>
+        <span class="n">coordinates</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">coordinates</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We load a CSV file and extract coordinates from it, resulting in a list of latitude and longitude tuples.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_nearest_index</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="c1"># Find the index of the element in the array that is closest to the given value</span>
+    <span class="k">return</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">array</span> <span class="o">-</span> <span class="n">value</span><span class="p">))</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We find the index of the element in the array that is closest to the given value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_gridmet_to_dem_mapper</span><span class="p">(</span><span class="n">nc_file</span><span class="p">):</span>
+    <span class="n">western_us_dem_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">western_us_coords</span><span class="p">)</span>
+    <span class="c1"># Check if the CSV already exists</span>
+    <span class="n">target_csv_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_dir</span><span class="si">}</span><span class="s1">/gridmet_to_dem_mapper.csv&#39;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">target_csv_path</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File </span><span class="si">{</span><span class="n">target_csv_path</span><span class="si">}</span><span class="s2"> already exists, skipping..&quot;</span><span class="p">)</span>
+        <span class="k">return</span>
+    
+    <span class="c1"># get the netcdf file and generate the csv file for every coordinate in the dem_template.csv</span>
+    <span class="n">selected_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">test_start_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># Read the NetCDF file</span>
+    <span class="k">with</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">nc_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">nc_file</span><span class="p">:</span>
+      
+      <span class="c1"># Get the values at each coordinate using rasterio&#39;s sample function</span>
+      <span class="n">latitudes</span> <span class="o">=</span> <span class="n">nc_file</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">][:]</span>
+      <span class="n">longitudes</span> <span class="o">=</span> <span class="n">nc_file</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">][:]</span>
+      
+      <span class="k">def</span> <span class="nf">get_gridmet_var_value</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+        <span class="c1"># Perform your custom calculation here</span>
+        <span class="n">gridmet_lat_index</span> <span class="o">=</span> <span class="n">find_nearest_index</span><span class="p">(</span><span class="n">latitudes</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;Latitude&quot;</span><span class="p">]))</span>
+        <span class="n">gridmet_lon_index</span> <span class="o">=</span> <span class="n">find_nearest_index</span><span class="p">(</span><span class="n">longitudes</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;Longitude&quot;</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">latitudes</span><span class="p">[</span><span class="n">gridmet_lat_index</span><span class="p">],</span> <span class="n">longitudes</span><span class="p">[</span><span class="n">gridmet_lon_index</span><span class="p">],</span> <span class="n">gridmet_lat_index</span><span class="p">,</span> <span class="n">gridmet_lon_index</span>
+    
+      <span class="c1"># Use the apply function to apply the custom function to each row</span>
+      <span class="n">western_us_dem_df</span><span class="p">[[</span><span class="s1">&#39;gridmet_lat&#39;</span><span class="p">,</span> <span class="s1">&#39;gridmet_lon&#39;</span><span class="p">,</span> 
+                         <span class="s1">&#39;gridmet_lat_idx&#39;</span><span class="p">,</span> <span class="s1">&#39;gridmet_lon_idx&#39;</span><span class="p">,]]</span> <span class="o">=</span> <span class="n">western_us_dem_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">row</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">get_gridmet_var_value</span><span class="p">(</span><span class="n">row</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+      <span class="n">western_us_dem_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Latitude&quot;</span><span class="p">:</span> <span class="s2">&quot;dem_lat&quot;</span><span class="p">,</span> 
+                                        <span class="s2">&quot;Longitude&quot;</span><span class="p">:</span> <span class="s2">&quot;dem_lon&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># Save the new converted AMSR to CSV file</span>
+    <span class="n">western_us_dem_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">target_csv_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">western_us_dem_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We generate a comprehensive mapping between the geographic coordinates present in a DEM template CSV file and their respective counterparts within a GridMET netCDF file. This mapping serves as a vital bridge, facilitating the seamless association and alignment of DEM and GridMET datasets. This integration is crucial for a wide array of spatial analyses, environmental modeling endeavors, and geographical studies.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="k">def</span> <span class="nf">get_operation_day</span><span class="p">():</span>
+  <span class="c1"># Get the current date and time</span>
+  <span class="n">current_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+  <span class="c1"># Calculate three days ago</span>
+  <span class="n">three_days_ago</span> <span class="o">=</span> <span class="n">current_date</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+  <span class="c1"># Format the date as a string</span>
+  <span class="n">three_days_ago_string</span> <span class="o">=</span> <span class="n">three_days_ago</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
+  <span class="nb">print</span><span class="p">(</span><span class="n">three_days_ago_string</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">three_days_ago_string</span>
+
+<span class="n">test_start_date</span> <span class="o">=</span> <span class="n">get_operation_day</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-04
+</pre></div>
+</div>
+</div>
+</div>
+<p>We retrieve the date of an operational day by calculating the date three days prior to the current date. This operational day is crucial for setting up various time-sensitive operations or analyses.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_nc_csv_by_coords_and_variable</span><span class="p">(</span><span class="n">nc_file</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">target_date</span><span class="o">=</span><span class="n">test_start_date</span><span class="p">):</span>
+    
+    <span class="n">create_gridmet_to_dem_mapper</span><span class="p">(</span><span class="n">nc_file</span><span class="p">)</span>
+  	
+    <span class="n">mapper_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_dir</span><span class="si">}</span><span class="s1">/gridmet_to_dem_mapper.csv&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># get the netcdf file and generate the csv file for every coordinate in the dem_template.csv</span>
+    <span class="n">selected_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">target_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># Read the NetCDF file</span>
+    <span class="k">with</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">nc_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">nc_file</span><span class="p">:</span>
+      <span class="c1"># Get a list of all variables in the NetCDF file</span>
+      <span class="n">variables</span> <span class="o">=</span> <span class="n">nc_file</span><span class="o">.</span><span class="n">variables</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+      
+      <span class="c1"># Get the values at each coordinate using rasterio&#39;s sample function</span>
+      <span class="n">latitudes</span> <span class="o">=</span> <span class="n">nc_file</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">][:]</span>
+      <span class="n">longitudes</span> <span class="o">=</span> <span class="n">nc_file</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">][:]</span>
+      <span class="n">day</span> <span class="o">=</span> <span class="n">nc_file</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">][:]</span>
+      <span class="n">long_var_name</span> <span class="o">=</span> <span class="n">gridmet_var_mapping</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span>
+      <span class="n">var_col</span> <span class="o">=</span> <span class="n">nc_file</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">long_var_name</span><span class="p">][:]</span>
+
+      
+      <span class="c1"># Calculate the day of the year</span>
+      <span class="n">day_of_year</span> <span class="o">=</span> <span class="n">selected_date</span><span class="o">.</span><span class="n">timetuple</span><span class="p">()</span><span class="o">.</span><span class="n">tm_yday</span>
+      <span class="n">day_index</span> <span class="o">=</span> <span class="n">day_of_year</span> <span class="o">-</span> <span class="mi">1</span>
+      
+      <span class="k">def</span> <span class="nf">get_gridmet_var_value</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+        <span class="c1"># Perform your custom calculation here</span>
+        <span class="n">lat_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;gridmet_lat_idx&quot;</span><span class="p">])</span>
+        <span class="n">lon_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;gridmet_lon_idx&quot;</span><span class="p">])</span>
+        <span class="n">var_value</span> <span class="o">=</span> <span class="n">var_col</span><span class="p">[</span><span class="n">day_index</span><span class="p">,</span> <span class="n">lat_index</span><span class="p">,</span> <span class="n">lon_index</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">var_value</span>
+    
+      <span class="c1"># Use the apply function to apply the custom function to each row</span>
+      <span class="n">mapper_df</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">mapper_df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_gridmet_var_value</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+      
+      <span class="c1"># drop useless columns</span>
+      <span class="n">mapper_df</span> <span class="o">=</span> <span class="n">mapper_df</span><span class="p">[[</span><span class="s2">&quot;dem_lat&quot;</span><span class="p">,</span> <span class="s2">&quot;dem_lon&quot;</span><span class="p">,</span> <span class="n">var_name</span><span class="p">]]</span>
+      <span class="n">mapper_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;dem_lat&quot;</span><span class="p">:</span> <span class="s2">&quot;Latitude&quot;</span><span class="p">,</span>
+                               <span class="s2">&quot;dem_lon&quot;</span><span class="p">:</span> <span class="s2">&quot;Longitude&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mapper_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We extract data for a specific variable from a NetCDF file by matching coordinates from a DEM template CSV file. This enables us to create a DataFrame containing the variable values alongside the corresponding coordinates. By doing so, we can effectively extract and analyze meteorological data for specific geographical locations, aiding in various environmental and geographical studies, as well as modeling endeavors.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">turn_gridmet_nc_to_csv</span><span class="p">(</span><span class="n">target_date</span><span class="o">=</span><span class="n">test_start_date</span><span class="p">):</span>
+    
+    <span class="n">selected_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">target_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">generated_csvs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">gridmet_folder_name</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">selected_date</span><span class="o">.</span><span class="n">year</span><span class="p">)</span> <span class="ow">in</span> <span class="n">file_name</span> <span class="ow">and</span> <span class="n">file_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.nc&quot;</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Checking file: </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">var_name</span> <span class="o">=</span> <span class="n">get_var_from_file_name</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+                <span class="n">res_csv</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">work_dir</span><span class="si">}</span><span class="s2">/testing_output/</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">selected_date</span><span class="o">.</span><span class="n">year</span><span class="p">)</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">target_date</span><span class="si">}</span><span class="s2">.csv&quot;</span>
+
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">res_csv</span><span class="p">):</span>
+                    <span class="c1">#os.remove(res_csv)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">res_csv</span><span class="si">}</span><span class="s2"> already exists. Skipping..&quot;</span><span class="p">)</span>
+                    <span class="n">generated_csvs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res_csv</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># Perform operations on each file here</span>
+                <span class="n">netcdf_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Processing file:&quot;</span><span class="p">,</span> <span class="n">netcdf_file_path</span><span class="p">)</span>
+                <span class="n">file_name</span> <span class="o">=</span> <span class="n">get_file_name_from_path</span><span class="p">(</span><span class="n">netcdf_file_path</span><span class="p">)</span>
+
+                <span class="n">df</span> <span class="o">=</span> <span class="n">get_nc_csv_by_coords_and_variable</span><span class="p">(</span><span class="n">netcdf_file_path</span><span class="p">,</span> 
+                                                       <span class="n">var_name</span><span class="p">,</span> <span class="n">target_date</span><span class="p">)</span>
+                <span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">NA</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">res_csv</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;gridmet var saved: &quot;</span><span class="p">,</span> <span class="n">res_csv</span><span class="p">)</span>
+                <span class="n">generated_csvs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">res_csv</span><span class="p">)</span>
+                
+    <span class="k">return</span> <span class="n">generated_csvs</span>   
+</pre></div>
+</div>
+</div>
+</div>
+<p>We convert GridMET NetCDF files to CSV format for a specified date. We iterate through files in the GridMET folder, checking for files corresponding to the selected date. For each matching file, we extract the variable name and generate a CSV file containing the data. If the CSV file already exists, we skip the process. This process facilitates easy access and analysis of meteorological data for a specific date.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_gridmet</span><span class="p">(</span><span class="n">target_date</span><span class="o">=</span><span class="n">test_start_date</span><span class="p">):</span>
+  <span class="n">selected_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">target_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="n">var_name</span> <span class="o">=</span> <span class="s2">&quot;pr&quot;</span>
+  <span class="n">test_csv</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">work_dir</span><span class="si">}</span><span class="s2">/testing_output/</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">selected_date</span><span class="o">.</span><span class="n">year</span><span class="p">)</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">target_date</span><span class="si">}</span><span class="s2">.csv&quot;</span>
+  <span class="n">gridmet_var_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">test_csv</span><span class="p">)</span>
+  <span class="n">gridmet_var_df</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">NA</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="n">gridmet_var_df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  <span class="n">gridmet_var_df</span><span class="p">[</span><span class="s1">&#39;pr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">gridmet_var_df</span><span class="p">[</span><span class="s1">&#39;pr&#39;</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+  
+  <span class="n">colormaplist</span><span class="p">,</span> <span class="n">value_ranges</span> <span class="o">=</span> <span class="n">create_color_maps_with_value_range</span><span class="p">(</span><span class="n">gridmet_var_df</span><span class="p">[</span><span class="n">var_name</span><span class="p">])</span>
+  
+  <span class="c1"># Create a scatter plot</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">gridmet_var_df</span><span class="p">[</span><span class="s2">&quot;Longitude&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+              <span class="n">gridmet_var_df</span><span class="p">[</span><span class="s2">&quot;Latitude&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> 
+              <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Pressure&#39;</span><span class="p">,</span> 
+              <span class="n">color</span><span class="o">=</span><span class="n">colormaplist</span><span class="p">,</span> 
+              <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+
+  <span class="c1"># Add labels and a legend</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X-axis&#39;</span><span class="p">)</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Y-axis&#39;</span><span class="p">)</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Scatter Plot Example&#39;</span><span class="p">)</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+  
+  <span class="n">res_png_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">work_dir</span><span class="si">}</span><span class="s2">/testing_output/</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">selected_date</span><span class="o">.</span><span class="n">year</span><span class="p">)</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">target_date</span><span class="si">}</span><span class="s2">.png&quot;</span>
+  <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">res_png_path</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;test image is saved at </span><span class="si">{</span><span class="n">res_png_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We plot GridMET meteorological data for a specific variable and date. We read the data from a corresponding CSV file and preprocess it, ensuring valid numerical values. Then, we create a scatter plot, mapping the variable values to geographic coordinates. The color of each point on the plot represents the magnitude of the variable value. Finally, we save the plot as a PNG image for further analysis and visualization.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">prepare_folder_and_get_year_list</span><span class="p">(</span><span class="n">target_date</span><span class="o">=</span><span class="n">test_start_date</span><span class="p">):</span>
+  <span class="c1"># Check if the folder exists, if not, create it</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">gridmet_folder_name</span><span class="p">):</span>
+      <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">gridmet_folder_name</span><span class="p">)</span>
+
+  <span class="n">selected_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">target_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">selected_date</span><span class="o">.</span><span class="n">month</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+    <span class="n">past_october_1</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">selected_date</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">past_october_1</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">selected_date</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="n">year_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">selected_date</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">past_october_1</span><span class="o">.</span><span class="n">year</span><span class="p">]</span>
+
+  <span class="c1"># Remove any existing files in the folder</span>
+  <span class="k">if</span> <span class="n">selected_date</span><span class="o">.</span><span class="n">year</span> <span class="o">==</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">year</span><span class="p">:</span>
+    <span class="c1"># check if the current year&#39;s netcdf contains the selected date</span>
+    <span class="c1"># get etr netcdf and read</span>
+    <span class="n">nc_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">gridmet_folder_name</span><span class="si">}</span><span class="s2">/tmmx_</span><span class="si">{</span><span class="n">selected_date</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">.nc&quot;</span>
+    <span class="n">ifremove</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">nc_file</span><span class="p">):</span>
+      <span class="k">with</span> <span class="n">nc</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">nc_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">ncd</span><span class="p">:</span>
+        <span class="n">day</span> <span class="o">=</span> <span class="n">ncd</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">][:]</span>
+        <span class="c1"># Calculate the day of the year</span>
+        <span class="n">day_of_year</span> <span class="o">=</span> <span class="n">selected_date</span><span class="o">.</span><span class="n">timetuple</span><span class="p">()</span><span class="o">.</span><span class="n">tm_yday</span>
+        <span class="n">day_index</span> <span class="o">=</span> <span class="n">day_of_year</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">day</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">day_index</span><span class="p">:</span>
+          <span class="n">ifremove</span> <span class="o">=</span> <span class="kc">True</span>
+    
+    <span class="k">if</span> <span class="n">ifremove</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The current year netcdf has new data. Redownloading..&quot;</span><span class="p">)</span>
+      <span class="n">remove_files_in_folder</span><span class="p">(</span><span class="n">gridmet_folder_name</span><span class="p">,</span> <span class="n">selected_date</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>  <span class="c1"># only redownload when the year is the current year</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The existing netcdf already covers the selected date. Avoid downloading..&quot;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">year_list</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We prepare the folder structure for storing GridMET data and obtain a list of relevant years based on the target date. This process ensures that the necessary directory exists for data storage and determines the appropriate years for data retrieval without delving into technical details.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add_cumulative_column</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">column_name</span><span class="p">):</span>
+  <span class="n">df</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;cumulative_</span><span class="si">{</span><span class="n">column_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">column_name</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+  <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We add a cumulative column to a DataFrame, summing the values of the specified column and storing the result in a new column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">prepare_cumulative_history_csvs</span><span class="p">(</span><span class="n">target_date</span><span class="o">=</span><span class="n">test_start_date</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">  </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prepare cumulative history CSVs for a specified target date.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - target_date (str, optional): The target date in the format &#39;YYYY-MM-DD&#39;. Default is &#39;test_start_date&#39;.</span>
+<span class="sd">    - force (bool, optional): If True, forcefully regenerate cumulative CSVs even if they already exist. Default is False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    None</span>
+
+<span class="sd">    This function generates cumulative history CSVs for a specified target date. It traverses the date range from the past</span>
+<span class="sd">    October 1 to the target date, downloads gridmet data, converts it to CSV, and merges it into a big DataFrame.</span>
+<span class="sd">    The cumulative values are calculated and saved in new CSV files.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">    ```python</span>
+<span class="sd">    prepare_cumulative_history_csvs(target_date=&#39;2023-01-01&#39;, force=True)</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    Note: This function assumes the existence of the following helper functions:</span>
+<span class="sd">    - download_gridmet_of_specific_variables</span>
+<span class="sd">    - prepare_folder_and_get_year_list</span>
+<span class="sd">    - turn_gridmet_nc_to_csv</span>
+<span class="sd">    - add_cumulative_column</span>
+<span class="sd">    - process_group_value_filling</span>
+<span class="sd">    ```</span>
+
+<span class="sd">    selected_date = datetime.strptime(target_date, &quot;%Y-%m-%d&quot;)</span>
+<span class="sd">    print(selected_date)</span>
+<span class="sd">    if selected_date.month &lt; 10:</span>
+<span class="sd">        past_october_1 = datetime(selected_date.year - 1, 10, 1)</span>
+<span class="sd">    else:</span>
+<span class="sd">        past_october_1 = datetime(selected_date.year, 10, 1)</span>
+
+<span class="sd">    # Rest of the function logic...</span>
+
+<span class="sd">    filled_data = filled_data.loc[:, [&#39;Latitude&#39;, &#39;Longitude&#39;, var_name, f&#39;cumulative_{var_name}&#39;]]</span>
+<span class="sd">    print(&quot;new_df final shape: &quot;, filled_data.head())</span>
+<span class="sd">    filled_data.to_csv(cumulative_target_path, index=False)</span>
+<span class="sd">    print(f&quot;new df is saved to {cumulative_target_path}&quot;)</span>
+<span class="sd">    print(filled_data.describe())</span>
+<span class="sd">    ```</span>
+<span class="sd">Note: This docstring includes placeholders such as &quot;download_gridmet_of_specific_variables&quot; and &quot;prepare_folder_and_get_year_list&quot; for the assumed existence of related helper functions. You should replace these placeholders with actual documentation for those functions.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">selected_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">target_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+  <span class="nb">print</span><span class="p">(</span><span class="n">selected_date</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">selected_date</span><span class="o">.</span><span class="n">month</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+    <span class="n">past_october_1</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">selected_date</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">past_october_1</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="n">selected_date</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+  <span class="c1"># Traverse and print every day from past October 1 to the specific date</span>
+  <span class="n">current_date</span> <span class="o">=</span> <span class="n">past_october_1</span>
+  
+  <span class="n">date_keyed_objects</span> <span class="o">=</span> <span class="p">{}</span>
+  
+  <span class="n">download_gridmet_of_specific_variables</span><span class="p">(</span>
+    <span class="n">prepare_folder_and_get_year_list</span><span class="p">(</span><span class="n">target_date</span><span class="o">=</span><span class="n">target_date</span><span class="p">)</span>
+  <span class="p">)</span>
+  
+  <span class="k">while</span> <span class="n">current_date</span> <span class="o">&lt;=</span> <span class="n">selected_date</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">current_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">))</span>
+    <span class="n">current_date_str</span> <span class="o">=</span> <span class="n">current_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    
+    <span class="n">generated_csvs</span> <span class="o">=</span> <span class="n">turn_gridmet_nc_to_csv</span><span class="p">(</span><span class="n">target_date</span><span class="o">=</span><span class="n">current_date_str</span><span class="p">)</span>
+    
+    <span class="c1"># read the csv into dataframe and merge to the big dataframe</span>
+    <span class="n">date_keyed_objects</span><span class="p">[</span><span class="n">current_date_str</span><span class="p">]</span> <span class="o">=</span> <span class="n">generated_csvs</span>
+    
+    <span class="n">current_date</span> <span class="o">+=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+  <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;date_keyed_objects: &quot;</span><span class="p">,</span> <span class="n">date_keyed_objects</span><span class="p">)</span>
+  <span class="n">target_generated_csvs</span> <span class="o">=</span> <span class="n">date_keyed_objects</span><span class="p">[</span><span class="n">target_date</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">single_csv</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">target_generated_csvs</span><span class="p">):</span>
+    <span class="c1"># traverse the variables of gridmet here</span>
+    <span class="c1"># each variable is a loop</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;creating cumulative for </span><span class="si">{</span><span class="n">single_csv</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="n">cumulative_target_path</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">single_csv</span><span class="si">}</span><span class="s2">_cumulative.csv&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cumulative_target_path = &quot;</span><span class="p">,</span> <span class="n">cumulative_target_path</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">cumulative_target_path</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">force</span><span class="p">:</span>
+      <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cumulative_target_path</span><span class="si">}</span><span class="s2"> already exists, skipping..&quot;</span><span class="p">)</span>
+      <span class="k">continue</span>
+    
+    <span class="c1"># Extract the file name without extension</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">single_csv</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">gap_filled_csv</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cumulative_target_path</span><span class="si">}</span><span class="s2">_gap_filled.csv&quot;</span>
+
+	<span class="c1"># Split the file name using underscores</span>
+    <span class="n">var_name</span> <span class="o">=</span> <span class="n">file_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found variable name </span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">current_date</span> <span class="o">=</span> <span class="n">past_october_1</span>
+    <span class="n">new_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">single_csv</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">new_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    
+    <span class="n">all_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">work_dir</span><span class="si">}</span><span class="s2">/testing_output/</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">selected_date</span><span class="o">.</span><span class="n">year</span><span class="p">)</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">var_name</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">target_date</span><span class="si">}</span><span class="s2">.csv&quot;</span><span class="p">)</span>
+    <span class="n">all_df</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">target_date</span>
+    <span class="n">all_df</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">all_df</span><span class="p">[</span><span class="n">var_name</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+    <span class="n">filled_data</span> <span class="o">=</span> <span class="n">all_df</span>
+    <span class="n">filled_data</span> <span class="o">=</span> <span class="n">filled_data</span><span class="p">[(</span><span class="n">filled_data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">target_date</span><span class="p">)]</span>
+    <span class="n">filled_data</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Finished correctly &quot;</span><span class="p">,</span> <span class="n">filled_data</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="n">filled_data</span> <span class="o">=</span> <span class="n">filled_data</span><span class="p">[[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude&#39;</span><span class="p">,</span> 
+                               <span class="n">var_name</span><span class="p">,</span> 
+<span class="c1">#                                f&#39;cumulative_{var_name}&#39;</span>
+                              <span class="p">]]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">filled_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">filled_data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">cumulative_target_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;new df is saved to </span><span class="si">{</span><span class="n">cumulative_target_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">filled_data</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We prepare cumulative history CSVs for a specified target date. We traverses the date range from the past October 1 to the target date, downloads GridMET data, converts it to CSV, and merges it into a big DataFrame. Cumulative values are then calculated and saved in new CSV files.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">homedir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">)</span>
+<span class="n">work_dir</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">homedir</span><span class="si">}</span><span class="s2">/gridmet_test_run&quot;</span>
+<span class="n">gridmet_folder_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">work_dir</span><span class="si">}</span><span class="s1">/gridmet_climatology&#39;</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+  <span class="c1"># Run the download function</span>
+  <span class="c1">#   download_gridmet_of_specific_variables(prepare_folder_and_get_year_list())</span>
+  <span class="c1">#   turn_gridmet_nc_to_csv()</span>
+  <span class="c1">#   plot_gridmet()</span>
+
+  <span class="c1"># prepare testing data with cumulative variables</span>
+  <span class="n">prepare_cumulative_history_csvs</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2024-04-04 00:00:00
+The existing netcdf already covers the selected date. Avoid downloading..
+An error occurred while downloading the file: name &#39;urllib&#39; is not defined
+An error occurred while downloading the file: name &#39;urllib&#39; is not defined
+An error occurred while downloading the file: name &#39;urllib&#39; is not defined
+An error occurred while downloading the file: name &#39;urllib&#39; is not defined
+An error occurred while downloading the file: name &#39;urllib&#39; is not defined
+An error occurred while downloading the file: name &#39;urllib&#39; is not defined
+An error occurred while downloading the file: name &#39;urllib&#39; is not defined
+An error occurred while downloading the file: name &#39;urllib&#39; is not defined
+An error occurred while downloading the file: name &#39;urllib&#39; is not defined
+An error occurred while downloading the file: name &#39;urllib&#39; is not defined
+An error occurred while downloading the file: name &#39;urllib&#39; is not defined
+An error occurred while downloading the file: name &#39;urllib&#39; is not defined
+An error occurred while downloading the file: name &#39;urllib&#39; is not defined
+An error occurred while downloading the file: name &#39;urllib&#39; is not defined
+An error occurred while downloading the file: name &#39;urllib&#39; is not defined
+An error occurred while downloading the file: name &#39;urllib&#39; is not defined
+2023-10-01
+2023-10-02
+2023-10-03
+2023-10-04
+2023-10-05
+2023-10-06
+2023-10-07
+2023-10-08
+2023-10-09
+2023-10-10
+2023-10-11
+2023-10-12
+2023-10-13
+2023-10-14
+2023-10-15
+2023-10-16
+2023-10-17
+2023-10-18
+2023-10-19
+2023-10-20
+2023-10-21
+2023-10-22
+2023-10-23
+2023-10-24
+2023-10-25
+2023-10-26
+2023-10-27
+2023-10-28
+2023-10-29
+2023-10-30
+2023-10-31
+2023-11-01
+2023-11-02
+2023-11-03
+2023-11-04
+2023-11-05
+2023-11-06
+2023-11-07
+2023-11-08
+2023-11-09
+2023-11-10
+2023-11-11
+2023-11-12
+2023-11-13
+2023-11-14
+2023-11-15
+2023-11-16
+2023-11-17
+2023-11-18
+2023-11-19
+2023-11-20
+2023-11-21
+2023-11-22
+2023-11-23
+2023-11-24
+2023-11-25
+2023-11-26
+2023-11-27
+2023-11-28
+2023-11-29
+2023-11-30
+2023-12-01
+2023-12-02
+2023-12-03
+2023-12-04
+2023-12-05
+2023-12-06
+2023-12-07
+2023-12-08
+2023-12-09
+2023-12-10
+2023-12-11
+2023-12-12
+2023-12-13
+2023-12-14
+2023-12-15
+2023-12-16
+2023-12-17
+2023-12-18
+2023-12-19
+2023-12-20
+2023-12-21
+2023-12-22
+2023-12-23
+2023-12-24
+2023-12-25
+2023-12-26
+2023-12-27
+2023-12-28
+2023-12-29
+2023-12-30
+2023-12-31
+2024-01-01
+2024-01-02
+2024-01-03
+2024-01-04
+2024-01-05
+2024-01-06
+2024-01-07
+2024-01-08
+2024-01-09
+2024-01-10
+2024-01-11
+2024-01-12
+2024-01-13
+2024-01-14
+2024-01-15
+2024-01-16
+2024-01-17
+2024-01-18
+2024-01-19
+2024-01-20
+2024-01-21
+2024-01-22
+2024-01-23
+2024-01-24
+2024-01-25
+2024-01-26
+2024-01-27
+2024-01-28
+2024-01-29
+2024-01-30
+2024-01-31
+2024-02-01
+2024-02-02
+2024-02-03
+2024-02-04
+2024-02-05
+2024-02-06
+2024-02-07
+2024-02-08
+2024-02-09
+2024-02-10
+2024-02-11
+2024-02-12
+2024-02-13
+2024-02-14
+2024-02-15
+2024-02-16
+2024-02-17
+2024-02-18
+2024-02-19
+2024-02-20
+2024-02-21
+2024-02-22
+2024-02-23
+2024-02-24
+2024-02-25
+2024-02-26
+2024-02-27
+2024-02-28
+2024-02-29
+2024-03-01
+2024-03-02
+2024-03-03
+2024-03-04
+2024-03-05
+2024-03-06
+2024-03-07
+2024-03-08
+2024-03-09
+2024-03-10
+2024-03-11
+2024-03-12
+2024-03-13
+2024-03-14
+2024-03-15
+2024-03-16
+2024-03-17
+2024-03-18
+2024-03-19
+2024-03-20
+2024-03-21
+2024-03-22
+2024-03-23
+2024-03-24
+2024-03-25
+2024-03-26
+2024-03-27
+2024-03-28
+2024-03-29
+2024-03-30
+2024-03-31
+2024-04-01
+2024-04-02
+2024-04-03
+2024-04-04
+date_keyed_objects:  {&#39;2023-10-01&#39;: [], &#39;2023-10-02&#39;: [], &#39;2023-10-03&#39;: [], &#39;2023-10-04&#39;: [], &#39;2023-10-05&#39;: [], &#39;2023-10-06&#39;: [], &#39;2023-10-07&#39;: [], &#39;2023-10-08&#39;: [], &#39;2023-10-09&#39;: [], &#39;2023-10-10&#39;: [], &#39;2023-10-11&#39;: [], &#39;2023-10-12&#39;: [], &#39;2023-10-13&#39;: [], &#39;2023-10-14&#39;: [], &#39;2023-10-15&#39;: [], &#39;2023-10-16&#39;: [], &#39;2023-10-17&#39;: [], &#39;2023-10-18&#39;: [], &#39;2023-10-19&#39;: [], &#39;2023-10-20&#39;: [], &#39;2023-10-21&#39;: [], &#39;2023-10-22&#39;: [], &#39;2023-10-23&#39;: [], &#39;2023-10-24&#39;: [], &#39;2023-10-25&#39;: [], &#39;2023-10-26&#39;: [], &#39;2023-10-27&#39;: [], &#39;2023-10-28&#39;: [], &#39;2023-10-29&#39;: [], &#39;2023-10-30&#39;: [], &#39;2023-10-31&#39;: [], &#39;2023-11-01&#39;: [], &#39;2023-11-02&#39;: [], &#39;2023-11-03&#39;: [], &#39;2023-11-04&#39;: [], &#39;2023-11-05&#39;: [], &#39;2023-11-06&#39;: [], &#39;2023-11-07&#39;: [], &#39;2023-11-08&#39;: [], &#39;2023-11-09&#39;: [], &#39;2023-11-10&#39;: [], &#39;2023-11-11&#39;: [], &#39;2023-11-12&#39;: [], &#39;2023-11-13&#39;: [], &#39;2023-11-14&#39;: [], &#39;2023-11-15&#39;: [], &#39;2023-11-16&#39;: [], &#39;2023-11-17&#39;: [], &#39;2023-11-18&#39;: [], &#39;2023-11-19&#39;: [], &#39;2023-11-20&#39;: [], &#39;2023-11-21&#39;: [], &#39;2023-11-22&#39;: [], &#39;2023-11-23&#39;: [], &#39;2023-11-24&#39;: [], &#39;2023-11-25&#39;: [], &#39;2023-11-26&#39;: [], &#39;2023-11-27&#39;: [], &#39;2023-11-28&#39;: [], &#39;2023-11-29&#39;: [], &#39;2023-11-30&#39;: [], &#39;2023-12-01&#39;: [], &#39;2023-12-02&#39;: [], &#39;2023-12-03&#39;: [], &#39;2023-12-04&#39;: [], &#39;2023-12-05&#39;: [], &#39;2023-12-06&#39;: [], &#39;2023-12-07&#39;: [], &#39;2023-12-08&#39;: [], &#39;2023-12-09&#39;: [], &#39;2023-12-10&#39;: [], &#39;2023-12-11&#39;: [], &#39;2023-12-12&#39;: [], &#39;2023-12-13&#39;: [], &#39;2023-12-14&#39;: [], &#39;2023-12-15&#39;: [], &#39;2023-12-16&#39;: [], &#39;2023-12-17&#39;: [], &#39;2023-12-18&#39;: [], &#39;2023-12-19&#39;: [], &#39;2023-12-20&#39;: [], &#39;2023-12-21&#39;: [], &#39;2023-12-22&#39;: [], &#39;2023-12-23&#39;: [], &#39;2023-12-24&#39;: [], &#39;2023-12-25&#39;: [], &#39;2023-12-26&#39;: [], &#39;2023-12-27&#39;: [], &#39;2023-12-28&#39;: [], &#39;2023-12-29&#39;: [], &#39;2023-12-30&#39;: [], &#39;2023-12-31&#39;: [], &#39;2024-01-01&#39;: [], &#39;2024-01-02&#39;: [], &#39;2024-01-03&#39;: [], &#39;2024-01-04&#39;: [], &#39;2024-01-05&#39;: [], &#39;2024-01-06&#39;: [], &#39;2024-01-07&#39;: [], &#39;2024-01-08&#39;: [], &#39;2024-01-09&#39;: [], &#39;2024-01-10&#39;: [], &#39;2024-01-11&#39;: [], &#39;2024-01-12&#39;: [], &#39;2024-01-13&#39;: [], &#39;2024-01-14&#39;: [], &#39;2024-01-15&#39;: [], &#39;2024-01-16&#39;: [], &#39;2024-01-17&#39;: [], &#39;2024-01-18&#39;: [], &#39;2024-01-19&#39;: [], &#39;2024-01-20&#39;: [], &#39;2024-01-21&#39;: [], &#39;2024-01-22&#39;: [], &#39;2024-01-23&#39;: [], &#39;2024-01-24&#39;: [], &#39;2024-01-25&#39;: [], &#39;2024-01-26&#39;: [], &#39;2024-01-27&#39;: [], &#39;2024-01-28&#39;: [], &#39;2024-01-29&#39;: [], &#39;2024-01-30&#39;: [], &#39;2024-01-31&#39;: [], &#39;2024-02-01&#39;: [], &#39;2024-02-02&#39;: [], &#39;2024-02-03&#39;: [], &#39;2024-02-04&#39;: [], &#39;2024-02-05&#39;: [], &#39;2024-02-06&#39;: [], &#39;2024-02-07&#39;: [], &#39;2024-02-08&#39;: [], &#39;2024-02-09&#39;: [], &#39;2024-02-10&#39;: [], &#39;2024-02-11&#39;: [], &#39;2024-02-12&#39;: [], &#39;2024-02-13&#39;: [], &#39;2024-02-14&#39;: [], &#39;2024-02-15&#39;: [], &#39;2024-02-16&#39;: [], &#39;2024-02-17&#39;: [], &#39;2024-02-18&#39;: [], &#39;2024-02-19&#39;: [], &#39;2024-02-20&#39;: [], &#39;2024-02-21&#39;: [], &#39;2024-02-22&#39;: [], &#39;2024-02-23&#39;: [], &#39;2024-02-24&#39;: [], &#39;2024-02-25&#39;: [], &#39;2024-02-26&#39;: [], &#39;2024-02-27&#39;: [], &#39;2024-02-28&#39;: [], &#39;2024-02-29&#39;: [], &#39;2024-03-01&#39;: [], &#39;2024-03-02&#39;: [], &#39;2024-03-03&#39;: [], &#39;2024-03-04&#39;: [], &#39;2024-03-05&#39;: [], &#39;2024-03-06&#39;: [], &#39;2024-03-07&#39;: [], &#39;2024-03-08&#39;: [], &#39;2024-03-09&#39;: [], &#39;2024-03-10&#39;: [], &#39;2024-03-11&#39;: [], &#39;2024-03-12&#39;: [], &#39;2024-03-13&#39;: [], &#39;2024-03-14&#39;: [], &#39;2024-03-15&#39;: [], &#39;2024-03-16&#39;: [], &#39;2024-03-17&#39;: [], &#39;2024-03-18&#39;: [], &#39;2024-03-19&#39;: [], &#39;2024-03-20&#39;: [], &#39;2024-03-21&#39;: [], &#39;2024-03-22&#39;: [], &#39;2024-03-23&#39;: [], &#39;2024-03-24&#39;: [], &#39;2024-03-25&#39;: [], &#39;2024-03-26&#39;: [], &#39;2024-03-27&#39;: [], &#39;2024-03-28&#39;: [], &#39;2024-03-29&#39;: [], &#39;2024-03-30&#39;: [], &#39;2024-03-31&#39;: [], &#39;2024-04-01&#39;: [], &#39;2024-04-02&#39;: [], &#39;2024-04-03&#39;: [], &#39;2024-04-04&#39;: []}
+</pre></div>
+</div>
+</div>
+</div>
+<p>When we run the script directly (<code class="docutils literal notranslate"><span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;</span></code>), our main focus is to ensure the preparation of cumulative history CSVs for testing data. By triggering the <code class="docutils literal notranslate"><span class="pre">prepare_cumulative_history_csvs</span></code> function with the <code class="docutils literal notranslate"><span class="pre">force</span></code> parameter set to True, we ensure that all necessary steps are taken to generate accurate cumulative values. Throughout this process, we manage tasks such as downloading GridMET data for specific variables, converting it into CSV format, and calculating cumulative values for each variable over the specified date range. The use of <code class="docutils literal notranslate"><span class="pre">force=True</span></code> ensures that the cumulative CSVs are regenerated if they already exist, mai</p>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="gridmet-climatology-data-retrieval-and-analysis">
+<h1>GridMET Climatology Data Retrieval and Analysis<a class="headerlink" href="#gridmet-climatology-data-retrieval-and-analysis" title="Link to this heading">#</a></h1>
+<p>In this chapter, we do</p>
+<ul class="simple">
+<li><p><strong>Data Collection:</strong> : The script fetches gridMET climatology data from a specified source for various meteorological variables (e.g., temperature, precipitation) and multiple <a class="reference external" href="http://years.It">years.It</a> ensures that the data is downloaded for each variable and year required for analysis.</p></li>
+<li><p><strong>Data Processing:</strong> After downloading, the script extracts relevant data for specific geographical locations corresponding to weather stations. It organizes the data into structured formats (CSV files) for easier handling and analysis.</p></li>
+<li><p><strong>Data Integration:</strong> We merge similar variables obtained from different years into separate CSV files. We then combine all variables together into a single comprehensive dataset for further analysis and modeling tasks. By integrating data from various sources and time periods, it creates a unified dataset that can provide insights into long-term weather patterns and trends.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">datetime</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="n">homedir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s1">&#39;~&#39;</span><span class="p">)</span>
+
+<span class="c1"># Changing the timeframe from 10 years to 1 year to demonstrate</span>
+<span class="n">train_start_date</span> <span class="o">=</span> <span class="s2">&quot;2020-01-03&quot;</span>
+<span class="n">train_end_date</span> <span class="o">=</span> <span class="s2">&quot;2021-12-31&quot;</span>
+
+<span class="n">work_dir</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">homedir</span><span class="si">}</span><span class="s2">/gridmet_test_run&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We import necessary modules and libraries for its operation. These imports bring in functionalities like interacting with the operating system, handling file paths, making URL requests, managing dates and times, manipulating data, working with multi-dimensional arrays, and handling file system paths.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Suppress FutureWarnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+
+<span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">train_start_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">end_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">train_end_date</span><span class="p">,</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">year_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">start_date</span><span class="o">.</span><span class="n">year</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">end_date</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="n">start_date</span><span class="o">.</span><span class="n">year</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+
+<span class="n">working_dir</span> <span class="o">=</span> <span class="n">work_dir</span>
+<span class="c1">#stations = pd.read_csv(f&#39;{working_dir}/station_cell_mapping.csv&#39;)</span>
+<span class="n">stations</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">work_dir</span><span class="si">}</span><span class="s2">/all_snotel_cdec_stations_active_in_westus.csv&quot;</span><span class="p">)</span>
+<span class="n">gridmet_save_location</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">working_dir</span><span class="si">}</span><span class="s1">/gridmet_climatology&#39;</span>
+<span class="n">final_merged_csv</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">work_dir</span><span class="si">}</span><span class="s2">/training_all_active_snotel_station_list_elevation.csv_gridmet.csv&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="explanation">
+<h2>Explanation:<a class="headerlink" href="#explanation" title="Link to this heading">#</a></h2>
+<p>In this code snippet, FutureWarnings are suppressed using <code class="docutils literal notranslate"><span class="pre">warnings.filterwarnings(&quot;ignore&quot;,</span> <span class="pre">category=FutureWarning)</span></code>. Following that, the start and end dates for data processing are defined by converting the <code class="docutils literal notranslate"><span class="pre">train_start_date</span></code> and <code class="docutils literal notranslate"><span class="pre">train_end_date</span></code> strings into datetime objects. Subsequently, a list of years between the start and end dates is generated. The working directory path and file paths for SNOTEL stations data, GridMET climatology data storage, and the final merged CSV file are then set up accordingly. Overall, this snippet prepares the necessary parameters and file paths for subsequent data processing steps.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_files_in_directory</span><span class="p">():</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">gridmet_save_location</span> <span class="o">+</span> <span class="s2">&quot;/*.nc&quot;</span><span class="p">):</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">f</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We collect the names of files with the extension “.nc” within a specified directory by iterating through all files, appending their names to a list, and returning the list.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">download_file</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">save_location</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;download_file&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">:</span>
+            <span class="n">file_content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">save_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_location</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_content</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File downloaded successfully and saved as: </span><span class="si">{</span><span class="n">save_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An error occurred while downloading the file: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We attempt to download a file from a specified URL. We then save the downloaded file to a specified location.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">download_gridmet_climatology</span><span class="p">():</span>
+    <span class="n">folder_name</span> <span class="o">=</span> <span class="n">gridmet_save_location</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">folder_name</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">folder_name</span><span class="p">)</span>
+
+    <span class="n">base_metadata_url</span> <span class="o">=</span> <span class="s2">&quot;http://www.northwestknowledge.net/metdata/data/&quot;</span>
+    <span class="n">variables_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tmmn&#39;</span><span class="p">,</span> <span class="s1">&#39;tmmx&#39;</span><span class="p">,</span> <span class="s1">&#39;pr&#39;</span><span class="p">,</span> <span class="s1">&#39;vpd&#39;</span><span class="p">,</span> <span class="s1">&#39;etr&#39;</span><span class="p">,</span> <span class="s1">&#39;rmax&#39;</span><span class="p">,</span> <span class="s1">&#39;rmin&#39;</span><span class="p">,</span> <span class="s1">&#39;vs&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">variables_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">year_list</span><span class="p">:</span>
+            <span class="n">download_link</span> <span class="o">=</span> <span class="n">base_metadata_url</span> <span class="o">+</span> <span class="n">var</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">y</span> <span class="o">+</span> <span class="s1">&#39;.nc&#39;</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;downloading&quot;</span><span class="p">,</span> <span class="n">download_link</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder_name</span><span class="p">,</span> <span class="n">var</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">y</span> <span class="o">+</span> <span class="s1">&#39;.nc&#39;</span><span class="p">)):</span>
+                <span class="n">download_file</span><span class="p">(</span><span class="n">download_link</span><span class="p">,</span> <span class="n">folder_name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We set up a folder to store data. Then, we gather GridMET climatology data for a range of variables over multiple years. This involves collecting information on temperature, precipitation, vapor pressure deficit, reference evapotranspiration, maximum and minimum radiation, and wind speed. We ensure that the data for each variable and year combination is acquired and stored for further analysis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_gridmet_variable</span><span class="p">(</span><span class="n">file_name</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;reading values from </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">result_data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+    <span class="n">var_to_extract</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">var_to_extract</span><span class="p">)</span>
+    <span class="n">var_name</span> <span class="o">=</span> <span class="n">var_to_extract</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="n">var_name</span><span class="p">])</span>
+    
+    <span class="n">csv_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">gridmet_save_location</span><span class="si">}</span><span class="s1">/</span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span><span class="o">.</span><span class="n">stem</span><span class="si">}</span><span class="s1">.csv&#39;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">csv_file</span><span class="p">):</span>
+    	<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The file &#39;</span><span class="si">{</span><span class="n">csv_file</span><span class="si">}</span><span class="s2">&#39; exists.&quot;</span><span class="p">)</span>
+    	<span class="k">return</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">stations</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="n">lat</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span>
+        <span class="n">lon</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">]</span>
+		
+        <span class="n">subset_data</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="n">lon</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+        <span class="n">subset_data</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lat</span>
+        <span class="n">subset_data</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lon</span>
+        <span class="n">converted_df</span> <span class="o">=</span> <span class="n">subset_data</span><span class="o">.</span><span class="n">to_dataframe</span><span class="p">()</span>
+        <span class="n">converted_df</span> <span class="o">=</span> <span class="n">converted_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">converted_df</span> <span class="o">=</span> <span class="n">converted_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;crs&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">converted_df</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+    <span class="n">result_df</span> <span class="o">=</span> <span class="n">df</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;got result_df : &quot;</span><span class="p">,</span> <span class="n">result_df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="n">result_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">csv_file</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;completed extracting data for </span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We retrieve data from a specific GridMET file, capturing information relevant to latitude and longitude coordinates provided in a dataset. Subsequently, we organize this data into a structured format, ensuring each entry corresponds to a specific day, latitude, and longitude, along with the associated variable values. Following this organization, we save this processed data as a CSV file, providing a convenient and accessible format for further analysis or visualization.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">merge_similar_variables_from_different_years</span><span class="p">():</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">gridmet_save_location</span><span class="p">)</span>
+    <span class="n">file_groups</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">base_name</span><span class="p">,</span> <span class="n">year_ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">base_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">year_ext</span> <span class="o">==</span> <span class="s1">&#39;.csv&#39;</span><span class="p">:</span>
+            <span class="n">file_groups</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">base_name</span><span class="p">,</span> <span class="n">file_list</span> <span class="ow">in</span> <span class="n">file_groups</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">file_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gridmet_save_location</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+                <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+            <span class="n">merged_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">merged_filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">base_name</span><span class="si">}</span><span class="s2">_merged.csv&quot;</span>
+            <span class="n">merged_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gridmet_save_location</span><span class="p">,</span> <span class="n">merged_filename</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Merged </span><span class="si">{</span><span class="n">file_list</span><span class="si">}</span><span class="s2"> into </span><span class="si">{</span><span class="n">merged_filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We collect list of files from a designated location. Then, we organize these files into groups based on similarities in their names. For each group of similar files, if there are multiple files present, we proceed to read each file as a DataFrame. Subsequently, we merge these DataFrames into a single comprehensive DataFrame. Following this merging process, we save the resulting merged DataFrame into a new CSV file. Finally, we print a notification message to indicate which files have been successfully merged. Through these steps, the function facilitates the consolidation of related data from different files into cohesive datasets.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">merge_all_variables_together</span><span class="p">():</span>
+    <span class="n">merged_df</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">file_paths</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">gridmet_save_location</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;_merged.csv&quot;</span><span class="p">):</span>
+            <span class="n">file_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gridmet_save_location</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+	
+    <span class="n">rmin_merged_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gridmet_save_location</span><span class="p">,</span> <span class="s1">&#39;rmin_merged.csv&#39;</span><span class="p">)</span>
+    <span class="n">rmax_merged_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gridmet_save_location</span><span class="p">,</span> <span class="s1">&#39;rmax_merged.csv&#39;</span><span class="p">)</span>
+    <span class="n">tmmn_merged_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gridmet_save_location</span><span class="p">,</span> <span class="s1">&#39;tmmn_merged.csv&#39;</span><span class="p">)</span>
+    <span class="n">tmmx_merged_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gridmet_save_location</span><span class="p">,</span> <span class="s1">&#39;tmmx_merged.csv&#39;</span><span class="p">)</span>
+    
+    <span class="n">df_rmin</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">rmin_merged_path</span><span class="p">)</span>
+    <span class="n">df_rmax</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">rmax_merged_path</span><span class="p">)</span>
+    <span class="n">df_tmmn</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">tmmn_merged_path</span><span class="p">)</span>
+    <span class="n">df_tmmx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">tmmx_merged_path</span><span class="p">)</span>
+    
+    <span class="n">df_rmin</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;relative_humidity&#39;</span><span class="p">:</span> <span class="s1">&#39;relative_humidity_rmin&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df_rmax</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;relative_humidity&#39;</span><span class="p">:</span> <span class="s1">&#39;relative_humidity_rmax&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df_tmmn</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;air_temperature&#39;</span><span class="p">:</span> <span class="s1">&#39;air_temperature_tmmn&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df_tmmx</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;air_temperature&#39;</span><span class="p">:</span> <span class="s1">&#39;air_temperature_tmmx&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">df_rmin</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gridmet_save_location</span><span class="p">,</span> <span class="s1">&#39;rmin_merged.csv&#39;</span><span class="p">))</span>
+    <span class="n">df_rmax</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gridmet_save_location</span><span class="p">,</span> <span class="s1">&#39;rmax_merged.csv&#39;</span><span class="p">))</span>
+    <span class="n">df_tmmn</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gridmet_save_location</span><span class="p">,</span> <span class="s1">&#39;tmmn_merged.csv&#39;</span><span class="p">))</span>
+    <span class="n">df_tmmx</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gridmet_save_location</span><span class="p">,</span> <span class="s1">&#39;tmmx_merged.csv&#39;</span><span class="p">))</span>
+    
+    <span class="k">if</span> <span class="n">file_paths</span><span class="p">:</span>
+        <span class="n">merged_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_paths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">file_paths</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">]:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+            <span class="n">merged_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">merged_df</span><span class="p">,</span> <span class="n">df</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">merged_df</span> <span class="o">=</span> <span class="n">merged_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="o">~</span><span class="n">merged_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()]</span>
+        <span class="n">merged_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">final_merged_csv</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We identify and collect CSV files with specific names from a designated location. Then, we proceed to read each of these CSV files, containing data for different variables, into separate DataFrames. Subsequently, we rename specific columns within each DataFrame to ensure clarity and consistency across variables. After updating column names, we overwrite the original CSV files with the renamed versions for consistency. Next, if there are multiple CSV files available, we merge them together into a single comprehensive DataFrame. To avoid redundancy and ensure data integrity, we remove any duplicated columns in the merged DataFrame. Finally, we save the merged DataFrame as a new CSV file, representing the combined dataset encompassing all variables. Through these steps, the function facilitates the integration of data from various sources into a unified dataset for comprehensive analysis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">netcdf4</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Channels:
+ - conda-forge
+ - defaults
+Platform: osx-arm64
+Collecting package metadata (repodata.json): done
+Solving environment: done
+
+## Package Plan ##
+
+  environment location: /opt/anaconda3
+
+  added / updated specs:
+    - netcdf4
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    cftime-1.6.3               |  py311h9ea6feb_0         201 KB  conda-forge
+    netcdf4-1.6.3              |nompi_py311h40498cf_100         423 KB  conda-forge
+    ------------------------------------------------------------
+                                           Total:         624 KB
+
+The following NEW packages will be INSTALLED:
+
+  cftime             conda-forge/osx-arm64::cftime-1.6.3-py311h9ea6feb_0 
+  netcdf4            conda-forge/osx-arm64::netcdf4-1.6.3-nompi_py311h40498cf_100 
+
+The following packages will be SUPERSEDED by a higher-priority channel:
+
+  certifi            pkgs/main/osx-arm64::certifi-2024.2.2~ --&gt; conda-forge/noarch::certifi-2024.2.2-pyhd8ed1ab_0 
+
+
+
+Downloading and Extracting Packages:
+netcdf4-1.6.3        | 423 KB    |                                       |   0% 
+netcdf4-1.6.3        | 423 KB    | #3                                    |   4% 
+cftime-1.6.3         | 201 KB    | ##9                                   |   8% 
+netcdf4-1.6.3        | 423 KB    | ##################################9   |  95% 
+netcdf4-1.6.3        | 423 KB    | ##################################### | 100% 
+                                                                                
+                                                                                
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">h5netcdf</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Collecting h5netcdf
+  Downloading h5netcdf-1.3.0-py3-none-any.whl.metadata (13 kB)
+Requirement already satisfied: h5py in /opt/anaconda3/lib/python3.11/site-packages (from h5netcdf) (3.8.0)
+Requirement already satisfied: packaging in /opt/anaconda3/lib/python3.11/site-packages (from h5netcdf) (23.1)
+Requirement already satisfied: numpy&gt;=1.14.5 in /opt/anaconda3/lib/python3.11/site-packages (from h5py-&gt;h5netcdf) (1.23.4)
+Downloading h5netcdf-1.3.0-py3-none-any.whl (43 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ <span class=" -Color -Color-Green">43.6/43.6 kB</span> <span class=" -Color -Color-Red">720.5 kB/s</span> eta <span class=" -Color -Color-Cyan">0:00:000:00:01</span>
+?25hInstalling collected packages: h5netcdf
+Successfully installed h5netcdf-1.3.0
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">install</span> <span class="o">--</span><span class="n">force</span><span class="o">-</span><span class="n">reinstall</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">h5netcdf</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Channels:
+ - conda-forge
+ - defaults
+Platform: osx-arm64
+Collecting package metadata (repodata.json): done
+Solving environment: done
+
+## Package Plan ##
+
+  environment location: /opt/anaconda3
+
+  added / updated specs:
+    - h5netcdf
+
+
+
+
+Downloading and Extracting Packages:
+
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    
+    <span class="n">download_gridmet_climatology</span><span class="p">()</span>
+    
+    <span class="n">nc_files</span> <span class="o">=</span> <span class="n">get_files_in_directory</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">nc</span> <span class="ow">in</span> <span class="n">nc_files</span><span class="p">:</span>
+        <span class="n">get_gridmet_variable</span><span class="p">(</span><span class="n">nc</span><span class="p">)</span>
+    
+    <span class="n">merge_similar_variables_from_different_years</span><span class="p">()</span>
+    <span class="n">merge_all_variables_together</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>downloading http://www.northwestknowledge.net/metdata/data/tmmn_2020.nc
+downloading http://www.northwestknowledge.net/metdata/data/tmmn_2021.nc
+downloading http://www.northwestknowledge.net/metdata/data/tmmx_2020.nc
+downloading http://www.northwestknowledge.net/metdata/data/tmmx_2021.nc
+downloading http://www.northwestknowledge.net/metdata/data/pr_2020.nc
+downloading http://www.northwestknowledge.net/metdata/data/pr_2021.nc
+downloading http://www.northwestknowledge.net/metdata/data/vpd_2020.nc
+downloading http://www.northwestknowledge.net/metdata/data/vpd_2021.nc
+downloading http://www.northwestknowledge.net/metdata/data/etr_2020.nc
+downloading http://www.northwestknowledge.net/metdata/data/etr_2021.nc
+downloading http://www.northwestknowledge.net/metdata/data/rmax_2020.nc
+downloading http://www.northwestknowledge.net/metdata/data/rmax_2021.nc
+downloading http://www.northwestknowledge.net/metdata/data/rmin_2020.nc
+downloading http://www.northwestknowledge.net/metdata/data/rmin_2021.nc
+downloading http://www.northwestknowledge.net/metdata/data/vs_2020.nc
+downloading http://www.northwestknowledge.net/metdata/data/vs_2021.nc
+reading values from /Users/meghana/gridmet_test_run/gridmet_climatology/rmin_2021.nc
+[&#39;relative_humidity&#39;]
+The file &#39;/Users/meghana/gridmet_test_run/gridmet_climatology/rmin_2021.csv&#39; exists.
+reading values from /Users/meghana/gridmet_test_run/gridmet_climatology/tmmn_2021.nc
+[&#39;air_temperature&#39;]
+The file &#39;/Users/meghana/gridmet_test_run/gridmet_climatology/tmmn_2021.csv&#39; exists.
+reading values from /Users/meghana/gridmet_test_run/gridmet_climatology/etr_2021.nc
+[&#39;potential_evapotranspiration&#39;]
+The file &#39;/Users/meghana/gridmet_test_run/gridmet_climatology/etr_2021.csv&#39; exists.
+reading values from /Users/meghana/gridmet_test_run/gridmet_climatology/etr_2020.nc
+[&#39;potential_evapotranspiration&#39;]
+The file &#39;/Users/meghana/gridmet_test_run/gridmet_climatology/etr_2020.csv&#39; exists.
+reading values from /Users/meghana/gridmet_test_run/gridmet_climatology/rmin_2020.nc
+[&#39;relative_humidity&#39;]
+The file &#39;/Users/meghana/gridmet_test_run/gridmet_climatology/rmin_2020.csv&#39; exists.
+reading values from /Users/meghana/gridmet_test_run/gridmet_climatology/tmmn_2020.nc
+[&#39;air_temperature&#39;]
+The file &#39;/Users/meghana/gridmet_test_run/gridmet_climatology/tmmn_2020.csv&#39; exists.
+reading values from /Users/meghana/gridmet_test_run/gridmet_climatology/tmmx_2021.nc
+[&#39;air_temperature&#39;]
+The file &#39;/Users/meghana/gridmet_test_run/gridmet_climatology/tmmx_2021.csv&#39; exists.
+reading values from /Users/meghana/gridmet_test_run/gridmet_climatology/tmmx_2020.nc
+[&#39;air_temperature&#39;]
+The file &#39;/Users/meghana/gridmet_test_run/gridmet_climatology/tmmx_2020.csv&#39; exists.
+reading values from /Users/meghana/gridmet_test_run/gridmet_climatology/vpd_2020.nc
+[&#39;mean_vapor_pressure_deficit&#39;]
+The file &#39;/Users/meghana/gridmet_test_run/gridmet_climatology/vpd_2020.csv&#39; exists.
+reading values from /Users/meghana/gridmet_test_run/gridmet_climatology/pr_2021.nc
+[&#39;precipitation_amount&#39;]
+The file &#39;/Users/meghana/gridmet_test_run/gridmet_climatology/pr_2021.csv&#39; exists.
+reading values from /Users/meghana/gridmet_test_run/gridmet_climatology/pr_2020.nc
+[&#39;precipitation_amount&#39;]
+The file &#39;/Users/meghana/gridmet_test_run/gridmet_climatology/pr_2020.csv&#39; exists.
+reading values from /Users/meghana/gridmet_test_run/gridmet_climatology/vpd_2021.nc
+[&#39;mean_vapor_pressure_deficit&#39;]
+The file &#39;/Users/meghana/gridmet_test_run/gridmet_climatology/vpd_2021.csv&#39; exists.
+reading values from /Users/meghana/gridmet_test_run/gridmet_climatology/vs_2021.nc
+[&#39;wind_speed&#39;]
+The file &#39;/Users/meghana/gridmet_test_run/gridmet_climatology/vs_2021.csv&#39; exists.
+reading values from /Users/meghana/gridmet_test_run/gridmet_climatology/rmax_2020.nc
+[&#39;relative_humidity&#39;]
+The file &#39;/Users/meghana/gridmet_test_run/gridmet_climatology/rmax_2020.csv&#39; exists.
+reading values from /Users/meghana/gridmet_test_run/gridmet_climatology/vs_2020.nc
+[&#39;wind_speed&#39;]
+The file &#39;/Users/meghana/gridmet_test_run/gridmet_climatology/vs_2020.csv&#39; exists.
+reading values from /Users/meghana/gridmet_test_run/gridmet_climatology/rmax_2021.nc
+[&#39;relative_humidity&#39;]
+The file &#39;/Users/meghana/gridmet_test_run/gridmet_climatology/rmax_2021.csv&#39; exists.
+Merged [&#39;tmmn_2020.csv&#39;, &#39;tmmn_2021.csv&#39;, &#39;tmmn_merged.csv&#39;] into tmmn_merged.csv
+Merged [&#39;vs_merged.csv&#39;, &#39;vs_2020.csv&#39;, &#39;vs_2021.csv&#39;] into vs_merged.csv
+Merged [&#39;rmax_merged.csv&#39;, &#39;rmax_2020.csv&#39;, &#39;rmax_2021.csv&#39;] into rmax_merged.csv
+Merged [&#39;etr_merged.csv&#39;, &#39;etr_2020.csv&#39;, &#39;etr_2021.csv&#39;] into etr_merged.csv
+Merged [&#39;vpd_merged.csv&#39;, &#39;vpd_2020.csv&#39;, &#39;vpd_2021.csv&#39;] into vpd_merged.csv
+Merged [&#39;tmmx_2021.csv&#39;, &#39;tmmx_2020.csv&#39;, &#39;tmmx_merged.csv&#39;] into tmmx_merged.csv
+Merged [&#39;pr_2021.csv&#39;, &#39;pr_2020.csv&#39;, &#39;pr_merged.csv&#39;] into pr_merged.csv
+Merged [&#39;rmin_2021.csv&#39;, &#39;rmin_merged.csv&#39;, &#39;rmin_2020.csv&#39;] into rmin_merged.csv
+</pre></div>
+</div>
+</div>
+</div>
+<p>We start by checking if our script is being executed directly. If it is, we proceed to download data related to GridMET climatology. After that, we retrieve a list of files from a directory, likely containing data files. Next, we iterate through each file, processing them to extract GridMET variables. Following that, we merge similar variables obtained from different years, presumably to create a comprehensive dataset. Lastly, we merge all the variables together, possibly creating a unified dataset. These actions collectively aim to handle and organize GridMET climatology data.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="datasource.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Training and Testing Dataset Overview</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="snotel.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">SNOTEL</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">GridMET Climatology Data Downloader</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gridmet">Gridmet</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gridmet-climatology-data-retrieval-and-analysis">GridMET Climatology Data Retrieval and Analysis</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation:</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Center for Spatial Information Science and Systems (CSISS), George Mason University
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
