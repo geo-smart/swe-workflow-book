@@ -1,6 +1,3 @@
-# Book settings
-# Learn more at https://jupyterbook.org/customize/config.html
-
 title: "Snow Water Equivalent Workflow"
 author: Center for Spatial Information Science and Systems (CSISS), George Mason University
 logo: img/logo/png
@@ -37,7 +34,7 @@ parse:
 # See https://jupyterbook.org/content/execute.html
 execute:
   # NOTE: 'cache' to use jupyter-cache, or 'force' to run all
-  execute_notebooks: 'cache'
+  execute_notebooks: 'off'
   exclude_patterns: ["*rendered*", "*skip*"]
   allow_errors: false
   # Per-cell notebook execution limit (seconds)

@@ -2,7 +2,7 @@
 
 # Jupyter Book things
 .bash_history
-*_build
+#*_build
 .jupyter-server-log.txt
 .config/
 .jupyter/
@@ -11,7 +11,7 @@
 
 # cookiecutter webpage things
 cookiecutter.json
-/book/_build/html/assets
+#/book/_build/html/assets
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
