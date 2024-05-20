@@ -32,7 +32,11 @@ runs:
     - name: Build JupyterBook
       shell: bash -l {0}
       run: |
+<<<<<<< HEAD
         jupyter-book build book
+=======
+        jupyter-book build book --builder html
+>>>>>>> bb3679fabc9b231f0a51b8a982f59cb4d1adb432
 
     - name: Dump Build Logs
       if: always()

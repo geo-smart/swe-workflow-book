@@ -25,6 +25,7 @@ jobs:
       run: |
         python .github/workflows/ensure_clean_notebooks.py
 
+<<<<<<< HEAD
     # NOTE: this isn't a comprehensive spellcheck, just common typos
     - name: Spellcheck
       if: always()
@@ -34,6 +35,14 @@ jobs:
         check_hidden: true
         skip: '.git,qaqc.yml'
         ignore_words_list: slippy,hist
+=======
+    - name: Install pyspellchecker
+      run: |
+          pip install pyspellchecker
+
+    - name: Custom Spellcheck with Ignore List
+      run: python .github/workflows/spellcheck.py
+>>>>>>> bb3679fabc9b231f0a51b8a982f59cb4d1adb432
 
     # borrowed from https://github.com/ProjectPythia/pythia-foundations/blob/main/.github/workflows/link-checker.yaml
     - name: Disable Notebook Execution Before Linkcheck

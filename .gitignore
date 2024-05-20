@@ -2,7 +2,11 @@
 
 # Jupyter Book things
 .bash_history
+<<<<<<< HEAD
 *_build
+=======
+#*_build
+>>>>>>> bb3679fabc9b231f0a51b8a982f59cb4d1adb432
 .jupyter-server-log.txt
 .config/
 .jupyter/
@@ -11,7 +15,11 @@
 
 # cookiecutter webpage things
 cookiecutter.json
+<<<<<<< HEAD
 /book/_build/html/assets
+=======
+#/book/_build/html/assets
+>>>>>>> bb3679fabc9b231f0a51b8a982f59cb4d1adb432
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -141,4 +149,8 @@ venv.bak/
 dmypy.json
 
 # Pyre type checker
+<<<<<<< HEAD
 .pyre/
+=======
+.pyre/
+>>>>>>> bb3679fabc9b231f0a51b8a982f59cb4d1adb432

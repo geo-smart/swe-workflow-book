@@ -3,3 +3,8 @@
 /workspace.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+<<<<<<< HEAD
+=======
+# GitHub Copilot persisted chat sessions
+/copilot/chatSessions
+>>>>>>> bb3679fabc9b231f0a51b8a982f59cb4d1adb432

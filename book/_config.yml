@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
 title: "Snow Water Equivalent Workflow"
 author: Center for Spatial Information Science and Systems (CSISS), George Mason University
 logo: img/logo/png
+=======
+title: "Snow Water Equivalent Workflow"
+author: Center for Spatial Information Science and Systems (CSISS), George Mason University
+logo: img/logo.png
+>>>>>>> bb3679fabc9b231f0a51b8a982f59cb4d1adb432
 only_build_toc_files: true
 
 # Add GitHub buttons to your book
@@ -37,7 +43,11 @@ parse:
 # See https://jupyterbook.org/content/execute.html
 execute:
   # NOTE: 'cache' to use jupyter-cache, or 'force' to run all
+<<<<<<< HEAD
   execute_notebooks: 'cache'
+=======
+  execute_notebooks: 'off'
+>>>>>>> bb3679fabc9b231f0a51b8a982f59cb4d1adb432
   exclude_patterns: ["*rendered*", "*skip*"]
   allow_errors: false
   # Per-cell notebook execution limit (seconds)
