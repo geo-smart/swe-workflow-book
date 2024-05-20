@@ -1,0 +1,76 @@
+root: intro
+format: jb-book
+parts:
+#- caption: About
+#  chapters:
+#    - title: Geosmart Website
+#      url: https://geo-smart.github.io/index.html
+#    - title: Project Pythia Foundations
+#      url: https://foundations.projectpythia.org/landing-page.html
+#    - title: About Use Case Library
+#      file: chapters/about
+
+- caption: Chapter One
+  chapters:
+    - file: chapters/motivation
+      title: Motivation
+
+- caption: Chapter Two
+  chapters:
+    - file: chapters/overview
+      title: Overview of the SWE Workflow
+
+- caption: Chapter Three
+  chapters:
+    - file: chapters/datasource
+      title: Data Source
+    - file: chapters/gridmet
+      title: GridMET
+    - file: chapters/snotel
+      title: SNOTEL
+    - file: chapters/fsCA
+      title: MODIS for fsCA
+    - file: chapters/dem
+      title: Digital Elevation Model
+    - file: chapters/amsr
+      title: AMSR
+
+- caption: Chapter Four
+  chapters:
+    - file: chapters/feat_selection
+      title: Feature Selection
+
+- caption: Chapter Five
+  chapters:
+    - file: chapters/time_series
+      title: Cumulative Time series analysis
+
+- caption: Chapter Six
+  chapters:
+    - file: chapters/sanity_checks
+      title: Workflow Sanity Checks
+
+- caption: Chapter Seven
+  chapters:
+    - file: chapters/model_training
+      title: Model Training
+
+- caption: Chapter Eight
+  chapters:
+    - file: chapters/validation
+      title: Model Testing & Validation
+
+- caption: Chapter Nine
+  chapters:
+    - file: chapters/predictions
+      title: Model Predictions / Results
+
+- caption: Chapter Ten
+  chapters:
+    - file: chapters/conclusion
+      title: Conclusion
+
+- caption: Reference
+  chapters:
+    - file: reference/glossary
+    - file: reference/bibliography
