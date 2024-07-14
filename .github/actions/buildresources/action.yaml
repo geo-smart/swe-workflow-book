@@ -34,23 +34,23 @@ runs:
       run: |
         jupyter-book build book --builder html
 
-    # - name: Dump Build Logs
-    #   if: always()
-    #   shell: bash -l {0}
-    #   run: |
-    #     if (test -a book/_build/html/reports/*log); then cat book/_build/html/reports/*log ; fi
+    - name: Dump Build Logs
+      if: always()
+      shell: bash -l {0}
+      run: |
+        if (test -a book/_build/html/reports/*log); then cat book/_build/html/reports/*log ; fi
 
-    # - name: Publish to GitHub Pages
-    #   if: inputs.publish-to-gh == 'true'
-    #   uses: peaceiris/actions-gh-pages@v3
-    #   with:
-    #     personal_token: ${{inputs.token}}
-    #     publish_dir: book/_build/html
-    #     publish_branch: gh-pages
+    - name: Publish to GitHub Pages
+      if: inputs.publish-to-gh == 'true'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        personal_token: ${{inputs.token}}
+        publish_dir: book/_build/html
+        publish_branch: gh-pages
 
-    # - name: Save Build
-    #   if: ${{ always() && inputs.jb-save == 'true'}}
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: build
-    #     path: book/_build/
+    - name: Save Build
+      if: ${{ always() && inputs.jb-save == 'true'}}
+      uses: actions/upload-artifact@v2
+      with:
+        name: build
+        path: book/_build/
