@@ -9,6 +9,7 @@ on:
 
     branches:
       - main
+      - test-why-doesnt-deploy
 
 jobs:
   build-and-deploy:
