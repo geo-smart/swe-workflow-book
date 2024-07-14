@@ -27,12 +27,12 @@ runs:
         # NOTE: change key to "jupyterbook-N+1" to force rebuilding cache
         key: jupyterbook-0
 
-    # - uses: ./.github/actions/setupconda
+    - uses: ./.github/actions/setupconda
 
-    # - name: Build JupyterBook
-    #   shell: bash -l {0}
-    #   run: |
-    #     jupyter-book build book --builder html
+    - name: Build JupyterBook
+      shell: bash -l {0}
+      run: |
+        jupyter-book build book --builder html
 
     # - name: Dump Build Logs
     #   if: always()
