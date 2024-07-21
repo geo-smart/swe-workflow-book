@@ -12,13 +12,21 @@ parts:
 
 - caption: Chapter One
   chapters:
+    - file: chapters/introduction_to_swe
+      title: Introduction to Snow Water Equivalent(SWE)
     - file: chapters/motivation
       title: Motivation
 
 - caption: Chapter Two
   chapters:
+    - file: chapters/how_to_monitor_swe
+      title: How to Measure SWE
+    - file: chapters/ml_based_swe_prediction
+      title: Measure SWE using ML
     - file: chapters/overview
       title: Overview of the SWE Workflow
+    - file: chapters/intro_to_swe_workflow_geoweaver
+      title: Introduction to SWE Workflow
 
 - caption: Chapter Three
   chapters:
