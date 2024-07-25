@@ -3,7 +3,9 @@ name: Deploy JupyterBook to GitHub Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches:
+      - main
+      - image-folder-name-issue
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -45,18 +47,18 @@ jobs:
 
 
   # Publish Website to GitHub Pages if built successfully
-  deploy:
-    needs: build
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  # deploy:
+  #   needs: build
+  #   if: github.ref == 'refs/heads/main'
+  #   runs-on: ubuntu-latest
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
 
-    steps:
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
+  #   steps:
+  #     - name: Setup Pages
+  #       uses: actions/configure-pages@v3
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+  #     - name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v1
