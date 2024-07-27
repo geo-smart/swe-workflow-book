@@ -70,7 +70,7 @@ parts:
 
 - caption: Chapter Nine
   chapters:
-    - file: chapters/predictions
+    - file: chapters/Predictions
       title: Model Predictions / Results
 
 - caption: Chapter Ten
