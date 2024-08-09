@@ -37,7 +37,9 @@ parts:
 
 - caption: Chapter Four
   chapters:
-    - file: chapters/feat_selection
+    - file: chapters/data_integration
+      title: Data Integration
+    - file: chapters/feature_selection
       title: Feature Selection
 
 - caption: Chapter Five
