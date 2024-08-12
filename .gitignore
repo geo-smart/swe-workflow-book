@@ -12,7 +12,7 @@
 # cookiecutter webpage things
 cookiecutter.json
 #/book/_build/html/assets
-book/_build/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -23,6 +23,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+build/
 /book/_build/
 develop-eggs/
 dist/
