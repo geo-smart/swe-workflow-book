@@ -14,7 +14,7 @@ parts:
   chapters:
     - file: chapters/introduction_to_swe
       title: Introduction to Snow Water Equivalent(SWE)
-    - file: chapters/motivation
+    - file: chapters/Motivation
       title: Motivation
 
 - caption: Chapter Two
