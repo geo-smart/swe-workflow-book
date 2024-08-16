@@ -4056,8 +4056,8 @@
     "countyName": "Grand",
     "huc": "140100010202",
     "elevation": 9700.0,
-    "latitude": 39.83333,
-    "longitude": -105.75,
+    "latitude": 39.83139,
+    "longitude": -105.75701,
     "shefId": "BTPC2",
     "beginDate": "1936-02-01 00:00",
     "endDate": "2100-01-01 00:00"
@@ -6569,24 +6569,6 @@
     "latitude": 39.4106,
     "longitude": -105.9675,
     "beginDate": "1932-10-01 00:00",
-    "endDate": "2100-01-01 00:00"
-  },
-  {
-    "stationTriplet": "2067:PR:SCAN",
-    "stationId": "2067",
-    "stateCode": "PR",
-    "networkCode": "SCAN",
-    "name": "Bosque Seco",
-    "dcoCode": "GC",
-    "countyName": "UNKNOWN",
-    "huc": "210100040109",
-    "elevation": 541.0,
-    "latitude": 17.97224,
-    "longitude": -66.8682,
-    "dataTimeZone": -4.0,
-    "pedonCode": "33831",
-    "shefId": "BOSP4",
-    "beginDate": "2002-06-04 00:00",
     "endDate": "2100-01-01 00:00"
   },
   {
@@ -16840,7 +16822,7 @@
     "huc": "140300020601",
     "elevation": 6666.0,
     "latitude": 37.57694,
-    "longitude": -108.57194,
+    "longitude": -108.57259,
     "beginDate": "1928-01-01 00:00",
     "endDate": "2100-01-01 00:00"
   },
@@ -17491,21 +17473,6 @@
     "latitude": 50.25,
     "longitude": -116.93333,
     "beginDate": "1969-10-01 00:00",
-    "endDate": "2100-01-01 00:00"
-  },
-  {
-    "stationTriplet": "19A16:WA:SNOW",
-    "stationId": "19A16",
-    "stateCode": "WA",
-    "networkCode": "SNOW",
-    "name": "Duncan Ridge",
-    "dcoCode": "OR",
-    "countyName": "Okanogan",
-    "huc": "170200071802",
-    "elevation": 5370.0,
-    "latitude": 48.8571,
-    "longitude": -119.79574,
-    "beginDate": "1996-03-01 00:00",
     "endDate": "2100-01-01 00:00"
   },
   {
@@ -26271,7 +26238,7 @@
     "dcoCode": "CO",
     "countyName": "Coconino",
     "huc": "150200100201",
-    "elevation": 7654.0,
+    "elevation": 7650.0,
     "latitude": 34.31254,
     "longitude": -110.75433,
     "dataTimeZone": -8.0,
@@ -29965,8 +29932,8 @@
     "countyName": "Grand",
     "huc": "140100010402",
     "elevation": 10400.0,
-    "latitude": 39.76667,
-    "longitude": -105.9,
+    "latitude": 39.76519,
+    "longitude": -105.90698,
     "shefId": "JNPC2",
     "beginDate": "1957-02-01 00:00",
     "endDate": "2100-01-01 00:00"
@@ -47082,6 +47049,22 @@
     "endDate": "2100-01-01 00:00"
   },
   {
+    "stationTriplet": "1327:AK:SNTL",
+    "stationId": "1327",
+    "stateCode": "AK",
+    "networkCode": "SNTL",
+    "name": "Pilgrim Hot Springs",
+    "dcoCode": "AK",
+    "countyName": "Nome",
+    "huc": "190501050702",
+    "elevation": 20.0,
+    "latitude": 65.09455,
+    "longitude": -164.92472,
+    "dataTimeZone": -9.0,
+    "beginDate": "2024-07-27 00:00",
+    "endDate": "2100-01-01 00:00"
+  },
+  {
     "stationTriplet": "06216400:WY:BOR",
     "stationId": "06216400",
     "stateCode": "WY",
@@ -48707,6 +48690,22 @@
     "latitude": 48.35,
     "longitude": -116.83333,
     "beginDate": "1898-03-01 00:00",
+    "endDate": "2100-01-01 00:00"
+  },
+  {
+    "stationTriplet": "1329:AK:SNTLT",
+    "stationId": "1329",
+    "stateCode": "AK",
+    "networkCode": "SNTLT",
+    "name": "Primrose",
+    "dcoCode": "AK",
+    "countyName": "Kenai Peninsula",
+    "huc": "190203021201",
+    "elevation": 2030.0,
+    "latitude": 60.27814,
+    "longitude": -149.4152,
+    "dataTimeZone": -9.0,
+    "beginDate": "2024-09-18 00:00",
     "endDate": "2100-01-01 00:00"
   },
   {
@@ -50775,7 +50774,7 @@
     "stationId": "UT0001",
     "stateCode": "UT",
     "networkCode": "USGS",
-    "name": "Rhodes Canal",
+    "name": "Rhoades Canal",
     "dcoCode": "UT",
     "countyName": "Duchesne",
     "huc": "140600030107",
@@ -54621,6 +54620,22 @@
     "endDate": "2100-01-01 00:00"
   },
   {
+    "stationTriplet": "1330:AK:SNTL",
+    "stationId": "1330",
+    "stateCode": "AK",
+    "networkCode": "SNTL",
+    "name": "Seven Mile",
+    "dcoCode": "AK",
+    "countyName": "Yukon-Koyukuk",
+    "huc": "190804040306",
+    "elevation": 660.0,
+    "latitude": 65.93772,
+    "longitude": -149.8631,
+    "dataTimeZone": -9.0,
+    "beginDate": "2024-09-24 00:00",
+    "endDate": "2100-01-01 00:00"
+  },
+  {
     "stationTriplet": "49Q01:AK:SNOW",
     "stationId": "49Q01",
     "stateCode": "AK",
@@ -56373,8 +56388,8 @@
     "countyName": "Larimer",
     "huc": "101800100101",
     "elevation": 9015.0,
-    "latitude": 40.6639,
-    "longitude": -105.8861,
+    "latitude": 40.66365,
+    "longitude": -105.88594,
     "beginDate": "1922-10-13 00:00",
     "endDate": "2100-01-01 00:00"
   },
@@ -61076,8 +61091,8 @@
     "countyName": "Saguache",
     "huc": "140200030501",
     "elevation": 10868.0,
-    "latitude": 37.9925,
-    "longitude": -106.7939,
+    "latitude": 37.99232,
+    "longitude": -106.79294,
     "beginDate": "1949-06-01 00:00",
     "endDate": "2100-01-01 00:00"
   },
@@ -62381,6 +62396,22 @@
     "longitude": -106.43297,
     "dataTimeZone": -8.0,
     "beginDate": "2016-11-30 00:00",
+    "endDate": "2100-01-01 00:00"
+  },
+  {
+    "stationTriplet": "1328:AK:SNTLT",
+    "stationId": "1328",
+    "stateCode": "AK",
+    "networkCode": "SNTLT",
+    "name": "Tincan",
+    "dcoCode": "AK",
+    "countyName": "Kenai Peninsula",
+    "huc": "190203020406",
+    "elevation": 3370.0,
+    "latitude": 60.74667,
+    "longitude": -149.12755,
+    "dataTimeZone": -9.0,
+    "beginDate": "2024-09-17 00:00",
     "endDate": "2100-01-01 00:00"
   },
   {
@@ -65695,8 +65726,8 @@
     "countyName": "Grand",
     "huc": "140100010201",
     "elevation": 9600.0,
-    "latitude": 39.85,
-    "longitude": -105.81667,
+    "latitude": 39.85436,
+    "longitude": -105.82186,
     "shefId": "VQZC2",
     "beginDate": "1957-02-01 00:00",
     "endDate": "2100-01-01 00:00"
@@ -68410,8 +68441,8 @@
     "countyName": "Coconino",
     "huc": "150602020204",
     "elevation": 7720.0,
-    "latitude": 35.2,
-    "longitude": -112.2,
+    "latitude": 35.21106,
+    "longitude": -112.19422,
     "shefId": "XWSA3",
     "beginDate": "1967-01-01 00:00",
     "endDate": "2100-01-01 00:00"
@@ -69726,8 +69757,8 @@
     "countyName": "Routt",
     "huc": "140500010402",
     "elevation": 8200.0,
-    "latitude": 40.36667,
-    "longitude": -106.76667,
+    "latitude": 40.36171,
+    "longitude": -106.77328,
     "shefId": "YMVC2",
     "beginDate": "1951-02-01 00:00",
     "endDate": "2100-01-01 00:00"
