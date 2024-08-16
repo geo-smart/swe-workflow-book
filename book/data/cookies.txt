@@ -1,0 +1,4 @@
+.earthdata.nasa.gov	TRUE	/	TRUE	1723856766	urs_user_already_logged	yes
+.nasa.gov	TRUE	/	FALSE	1757546985	_4c_	%7B%22_4c_s_%22%3A%22fZHNjoMgFIVfpWFdGn60otuuZ16hUbhWUisGGJ1O47vPxZoupsm48fJxzkGODzJ3MJCKF0KU6liqnEm%2BJ1e4B1I9iLcmvSZSkUznWkqtqTK8oVmbl1TppqW8VbLIQYGWQPbke82SpeSqYPIolj3R45bxINoZwCxeHrg6MNoGdMQfJFRkDOfRO%2FOl4znex6SbodkFc8UNA5PVcJ6tiV0KyFb5Rjuwly4iLtlKR4%2BzwGm2g3HzX9dGXy7FJdLGuzlAcp46726w46JA7LAH8lFrHD204P0qwVWwMX3iUIf6cHHTRrC4DdInNNDbCfz9HLxOO25ILTUQa1x9piuncjkOvdN1nyLxfyyvIlkhpZI8k1hU7EmljhlLz%2FJ0rr3yN7V4Vz%2FvR2%2B1HSgM%2F3jfTlqWXw%3D%3D%22%7D
+.nasa.gov	TRUE	/	FALSE	1750862233	urs_guid_ops	16b7196d-e8eb-413a-9669-7438b79c36c2
+urs.earthdata.nasa.gov	TRUE	/	TRUE	1723856766	_urs-gui_session	747a44ba2e8b9a5acbb9e2d835fdeb64
