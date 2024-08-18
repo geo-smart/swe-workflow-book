@@ -36,7 +36,7 @@ parts:
       title: GridMET
     - file: chapters/snotel
       title: SNOTEL
-    - file: chapters/ghcnd.ipynb
+    - file: chapters/ghcnd
       tile: Climate Changes (GHCND)
     - file: chapters/fsCA
       title: MODIS for fsCA
