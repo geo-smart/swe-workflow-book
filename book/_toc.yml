@@ -25,8 +25,8 @@ parts:
       title: Measure SWE using ML
     - file: chapters/overview
       title: Overview of the SWE Workflow
-    - file: chapters/intro_to_swe_workflow_geoweaver
-      title: Introduction to SWE Workflow
+    # - file: chapters/intro_to_swe_workflow_geoweaver
+    #   title: Introduction to SWE Workflow
 
 - caption: Chapter Three
   chapters:
@@ -37,7 +37,7 @@ parts:
     - file: chapters/snotel
       title: SNOTEL
     - file: chapters/ghcnd
-      tile: Climate Changes (GHCND)
+      title: Climate Changes (GHCND)
     - file: chapters/fsCA
       title: MODIS for fsCA
     - file: chapters/dem
