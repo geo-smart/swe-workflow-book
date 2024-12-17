@@ -35,6 +35,9 @@ jobs:
         with:
           cache-env: true
 
+      - name: Initialize Micromamba Shell
+        run: /home/runner/micromamba-bin/micromamba shell init -s bash --root-prefix /home/runner/micromamba-root -y source ~/.bashrc
+
       - name: Build the Book
         run: jb build book
 
